@@ -1,0 +1,48 @@
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: 'Nunito', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+/** @format */
+
+// Colors
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66d9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #005c40;
+$cyan: #6cb2eb;
+$dark: #4c545a;
+$light: #f8f9fa;
+$gray: #ececec;
+$light-orange: #fff7e3b3;
+
+// Breakpoints
+$pc-media: 1023px;
+$pad-media: 767px;
+$phone-media: 479px;
+
+// Custom bootstrap
+$dropdown-spacer: 0;
+
+// 新增 bootstrpa theme
+$theme-colors: (
+	'purple': $purple,
+	'orange': $orange
+);
+
+$grid-breakpoints: (
+	xs: 0,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+	xxl: 1400px
+);

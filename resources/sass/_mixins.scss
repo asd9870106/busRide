@@ -1,0 +1,31 @@
+/** @format */
+
+@import './variables';
+
+// Breakpoints
+@mixin pc-width() {
+	@media all and (min-width: $pc-media) {
+		@content;
+	}
+}
+//平板
+@mixin pad-width() {
+	@media all and (min-width: $pad-media) and (max-width: $pc-media) {
+		@content;
+	}
+}
+//手機
+@mixin phone-width() {
+	@media all and (max-width: $phone-media) {
+		@content;
+	}
+}
+// Ellipsis
+@mixin line-clamp-ellipsis($line) {
+	-webkit-line-clamp: $line;
+	word-break: break-all;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
