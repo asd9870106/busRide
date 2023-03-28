@@ -1,7 +1,9 @@
 <div class="row justify-content-center">
     <form action="{{ route('get_station_qrcode') }}" method="post">
         @csrf
-        <label for="station">Station:</label>
+        <label for="公車路線">Station:</label>
+        <input type="text" name="station" id="station" class="station">
+        <label for="站牌名稱">Station:</label>
         <input type="text" name="station" id="station" class="station">
         <button type="submit">Create QR Code</button>
     </form>

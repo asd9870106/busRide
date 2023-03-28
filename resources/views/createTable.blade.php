@@ -9,7 +9,8 @@
 </head>
 <body>
     <div>
-        <H1>BusStationCreate</H1>
+        <H1>CreateTable</H1>
+        <H1>CreateQrcode</H1>
     </div>
     @include('JS_view.createTable')
 </body>

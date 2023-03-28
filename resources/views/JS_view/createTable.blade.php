@@ -16,12 +16,28 @@
             method:"GET",
         })
         .then(function (response) {
-            
-            setBusdata(response);
+            console.log(response.data);
+            setQrcode(response)
+            // setBusdata(response);
             
         })
         .catch(function (error) {
             console.log(error);
+            return;
+        })
+    }
+    
+    function setQrcode(data) {
+        let route = "{{ route('create_station_qrcode') }}"
+        axios({
+            url: route,
+            method: 'POST',
+            data: data
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
             return;
         })
     }
@@ -49,8 +65,9 @@
             method:"GET",
         })
         .then(function (response) {
-            
-            setBusNumber(response);
+            console.log(response.data);
+
+            // setBusNumber(response);
             
         })
         .catch(function (error) {
@@ -58,6 +75,21 @@
             return;
         })
     }
+
+    // function setQrcode(data) {
+    //     let route = "{{ route('create_station_qrcode') }}"
+    //     axios({
+    //         url: route,
+    //         method: 'POST',
+    //         data: data
+    //     })
+    //     .then(function (response) {
+    //         console.log(response);
+    //     })
+    //     .catch(function (error) {
+    //         return;
+    //     })
+    // }
 
     function setBusNumber(data){
         console.log(data);

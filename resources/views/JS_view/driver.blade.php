@@ -58,6 +58,7 @@
         return data; 
     }
     async function setBusData(data){
+        console.log(data);
         let stop_0 = document.querySelector('.next_stop');
         let stop_1 = document.querySelector('.next_stop_1');
         let stop_2 = document.querySelector('.next_stop_2');

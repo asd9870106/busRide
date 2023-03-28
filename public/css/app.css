@@ -137,8 +137,22 @@ img{
     background: rgb(1 1 2 / 50%);
 }
 .grid {
-  background-color: rgb(87, 222, 237);
+  background-color: rgb(160, 160, 160);
   color: #4c545a;
   padding: 20px;
   border-radius: 8px;
+}
+.forminput {
+    display:inline;
+}
+.formButton{ 
+    background-color: rgb(56, 222, 255);
+    width: 5em;
+    height: 2em;
+    color: #000000;
+    border-radius: 6px;
+    border: none;
+}
+.formtext {
+    color: rgb(0, 0, 0)
 }

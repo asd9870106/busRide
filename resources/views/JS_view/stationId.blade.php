@@ -32,6 +32,7 @@
             }
         })
         .then(function (response) {
+            console.log(response.data);
             data = response.data;
         })
         .catch(function (error) {
@@ -59,7 +60,6 @@
 
     function setBusData(data, data1) {
         // 清除原本的欄位
-        console.log(data);
         document.querySelector('#bus_name').textContent = data[0]['StopName']['Zh_tw'];
         let table = document.querySelector('#clonetest');
         let trTable = document.querySelector('.rifo')
@@ -138,7 +138,6 @@
         let rows = document.querySelectorAll('.sort')
         let dataSort = [];
         let table = document.querySelector('.tableClone')
-        console.log(rows);
         for(i=0; i<rows.length; i++) {
             dataSort.push({element: rows[i], value: rows[i].getAttribute("value")});
             // let data = rows[i].getAttribute('value');
@@ -154,7 +153,6 @@
 
         // let table = document.querySelector('.tableClone');
 
-        console.log(dataSort);
     }
 
     function formSumbit(){
@@ -178,12 +176,10 @@
 
         for(let i = 0; i<dataNumber.length; i++) {
             let test = typeof(dataNumber[i]);
-            console.log(test);
 
         }   
         
-        console.log(dataNumber);
-        console.log(dataType);
+
         axios({
             url: route,
             method: 'POST',
@@ -195,7 +191,6 @@
             }
         })
         .then(function (response) {
-            console.log(response);
             // swal.('預約成功');
             Swal.fire({
                 position: 'top',
@@ -207,7 +202,6 @@
             return;
         })
         .catch(function (error) {
-            console.log(error);
             return;
         })
     }
@@ -253,12 +247,10 @@
 
     function clearTable() {
         let table = document.querySelectorAll('.tr-template');
-        console.log(table);
         let originalTable = table[0];
         for(i=0; i<table.length; i++) {
             table[i].parentNode.removeChild(table[i]);
         }
-        console.log(originalTable);
         return originalTable;
     }
 
@@ -266,14 +258,12 @@
         let table = document.querySelectorAll('.reserve');
         for(i = 0; i < table.length; i++){
             table[i].textContent = '尚未預約';
-            console.log(table[i]);
         }
 
     }
 
     function rifoModel() {
         // 取得按鈕和 Modal
-        console.log(station);
         let route = "{{ route('get_stop_data') }}"
         axios({
             method: 'GET',
@@ -283,7 +273,6 @@
             }
         })
         .then(function (response) {
-            console.log(response);
             setRifoModal(response.data);
         })
         .catch(function (error) {
@@ -291,7 +280,6 @@
         return;
     }
     function setRifoModal(data){
-        console.log(data);
         clearModalTable();
         let busNumber = [];
         let table = document.querySelectorAll('.tr_rifo');

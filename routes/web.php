@@ -45,11 +45,14 @@ Route::get('/test/qrcode', 'App\Http\Controllers\QrcodeController@index');
 Route::post('/qrcode', 'App\Http\Controllers\QrcodeController@generate')->name('qrcode.generate');
 
 // 新增 資料庫Table
-Route::group(['prefix' => 'createtable'], function () {
+Route::group(['prefix' => 'create'], function () {
     Route::get('/', 'App\Http\Controllers\GetDataController@index');
-    Route::post('/create', 'App\Http\Controllers\GetDataController@create')->name('create_bus_station');
+    Route::post('/station', 'App\Http\Controllers\GetDataController@createStationQrcode')->name('create_station_qrcode');
+    Route::post('/driver', 'App\Http\Controllers\GetDataController@createDriverQrcode')->name('create_driver_qrcode');
+    Route::post('/table', 'App\Http\Controllers\GetDataController@create')->name('create_bus_station');
     Route::post('/createBusNumber', 'App\Http\Controllers\GetDataController@createBusNumber')->name('create_bus_number');
 });
+
 
 // 取得資料
 Route::get('/getTaipeiStop', 'App\Http\Controllers\GetDataController@getTaipeiStop')->name('get_taipei_stop');

@@ -163,4 +163,12 @@ class GetDataController extends Controller
     public function index() {
         return view('createTable');
     }
+
+    public function createStationQrcode() {
+        
+    }
+    
+    public function createDriverQrcode() {
+
+    }
 }
