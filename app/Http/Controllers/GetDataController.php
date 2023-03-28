@@ -164,11 +164,21 @@ class GetDataController extends Controller
         return view('createTable');
     }
 
-    public function createStationQrcode() {
+    public function createStationQrcode(Request $request) {
         
-    }
-    
-    public function createDriverQrcode() {
+        $station = $request->input('station');
+        $url = 'http://127.0.0.1:8000/station/'. '?station=' . urlencode($station);
+        $qrCode = QrCode::size(250)->generate($url);
 
     }
+
+    public function createDriverQrcode() {
+        \Debugbar::info($request);
+        $route = $request->input('route');
+        $busName = $request->input('busName');
+        $url = 'http://127.0.0.1:8000/driver/'. '?route=' . urlencode($route) . '&busName=' . urlencode($busName);
+        $qrCode = QrCode::size(250)->generate($url);
+    }
+
+
 }
