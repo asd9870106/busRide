@@ -3,8 +3,8 @@
 @section('test')
     <br>
     @if(isset($station) && isset($qrCode))
-        <p>QR Code for {{ $station }}:</p>
-        {!! $qrCode !!}
+        <p class="formtext">QR Code for  :</p>
+        {{-- {!! $qrCode !!} --}}
     @endif
 
 @endsection

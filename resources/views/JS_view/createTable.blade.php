@@ -6,7 +6,7 @@
 
     function init() {
         getBusStation();
-        getBusNumber();
+        // getBusNumber();
     }
 
     function getBusStation() {
@@ -17,7 +17,7 @@
         })
         .then(function (response) {
             console.log(response.data);
-            setQrcode(response)
+            setQrcode(response);
             // setBusdata(response);
             
         })
@@ -31,7 +31,7 @@
         let route = "{{ route('create_station_qrcode') }}"
         axios({
             url: route,
-            method: 'POST',
+            method: 'post',
             data: data
         })
         .then(function (response) {

@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('driver_qrcode_lists', function (Blueprint $table) {
+        Schema::create('qrcode_station_lists', function (Blueprint $table) {
             $table->id();
-            $table->string('route');
-            $table->string('bus_number');
+            $table->integer('station_id');
+            $table->string('station_name');
+            $table->string('station_address');
             $table->binary('qrcode_image');
             $table->timestamps();
         });
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('driver_qrcode_lists');
+        Schema::dropIfExists('qrcode_station_lists');
     }
 };

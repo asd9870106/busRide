@@ -22,8 +22,8 @@ Route::group(['prefix' => 'station'], function () {
     Route::get('/', 'App\Http\Controllers\StationBusController@detail');
     Route::get('/qrcode', 'App\Http\Controllers\StationBusController@main')->name('set_station_qrcode');
     Route::get('/busqrcode', 'App\Http\Controllers\StationBusController@busQrcode')->name('set_bus_qrcode');
-    Route::post('/getqrcode', 'App\Http\Controllers\StationBusController@generate')->name('get_station_qrcode');
-    Route::post('/getbusqrcode', 'App\Http\Controllers\StationBusController@getBusQrcode')->name('get_bus_qrcode');
+    Route::get('/getstationqrcode', 'App\Http\Controllers\GetDataController@getStationQrcode')->name('get_station_qrcode');
+    Route::get('/getdriverqrcode', 'App\Http\Controllers\GetDataController@getDriverQrcode')->name('get_driver_qrcode');
     Route::post('/', 'App\Http\Controllers\StationBusController@create')->name('bus_rifo_create');
 });
 

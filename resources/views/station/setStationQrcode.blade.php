@@ -11,24 +11,33 @@
         <div id="Div_foundation_list">
             {{-- 搜尋欄位 --}}
             <div class="row justify-content-center">
-                <form action="{{ route('get_station_qrcode') }}" method="post">
-                    @csrf
-                    <div class="forminput">
-                        <label class="formtext" for="number m-3">公車路線:</label>
-                        <input type="text" name="number" id="number" class="number">
-                    </div>
-                    <div class="forminput m-3">
-                        <label class="formtext" for="station">站牌:</label>
-                        <input type="text" name="station" id="station" class="station">
-                    </div>
-                    <button class="formButton" type="submit">搜尋</button>
-                </form>
+                <div class="forminput">
+                    <label class="formtext m-3" for="station">站牌:</label>
+                    <input type="text" name="station" id="station" class="bus">
+                    <button class="formButton m-3" onclick="getQrcode()" type="submit">搜尋</button>
+                </div>
             </div>
             @yield('test')
         </div>
     </div>
 </div>
 <script> 
-
+    function getQrcode(){
+        let route = "{{ route('get_station_qrcode') }}"
+        let stationName = document.querySelector('#station').value;
+        axios({
+            url: route,
+            method: 'get',
+            params: {
+                'station_name' : stationName
+            }
+        })
+        .then(function (response) {
+            console.log(response.data);
+        })
+        .catch(function (error) {
+            return;
+        })
+    }
 </script>
 @endsection

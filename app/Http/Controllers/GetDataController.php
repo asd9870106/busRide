@@ -7,19 +7,23 @@ use App\Models\ListType;
 use App\Models\RideBusNumber;
 use App\Services\ListBusNumberService;
 use App\Services\StationService;
+use App\Services\QrcodeService;
 
 class GetDataController extends Controller
 {
     protected $listBusNumberService,
-              $StationService;
+              $StationService,
+              $QrcodeService;
 
     public function __construct(
         ListBusNumberService $listBusNumberService,
-        StationService $StationService
+        StationService $StationService,
+        QrcodeService $QrcodeService
     )
     {
         $this->listBusNumberService = $listBusNumberService;
         $this->StationService = $StationService;
+        $this->QrcodeService = $QrcodeService;
     }
 
     // 取得台北市公車到站資料
@@ -165,11 +169,25 @@ class GetDataController extends Controller
     }
 
     public function createStationQrcode(Request $request) {
-        
-        $station = $request->input('station');
-        $url = 'http://127.0.0.1:8000/station/'. '?station=' . urlencode($station);
-        $qrCode = QrCode::size(250)->generate($url);
+        // \Debugbar::info($request);
+        $created = $this->QrcodeService->createStationQrcode($request->data);
 
+        if (isset($created['result'])) {
+            if ($created['result'] === 'Successful') {
+                return response('Successful', 200);
+            } elseif ($created['result'] === 'Failed') {
+            return response('Server Error', 500);
+            }
+        } 
+    }
+
+    public function getStationQrcode(Request $request) {
+        \Debugbar::info($request);
+        $table = $this->QrcodeService->getStationQrcode($request->station_name);
+        \Debugbar::info($table);
+        
+        
+        return $table;
     }
 
     public function createDriverQrcode() {
@@ -180,5 +198,8 @@ class GetDataController extends Controller
         $qrCode = QrCode::size(250)->generate($url);
     }
 
+    public function getDriverQrcode(Request $request) {
+        // $table = $this->QrcodeService->getStationQrcode($request);
+    }
 
 }

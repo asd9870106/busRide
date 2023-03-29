@@ -47,6 +47,7 @@ class RideInformationRepository
             return ['error' => $e->getMessage()];
         }
     }
+    
     public function getStopDetail($stationId)
     {
         return $this->rideInformation->where('station_Id', $stationId)
