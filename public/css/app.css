@@ -194,3 +194,7 @@ input.bus {
     border-radius: 6px;
     border: none;
 }
+
+.busqrcode{
+    background-color: rgb(255, 255, 255);
+}

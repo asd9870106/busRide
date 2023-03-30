@@ -18,7 +18,7 @@
         .then(function (response) {
             console.log(response.data);
             setQrcode(response);
-            // setBusdata(response);
+            setBusdata(response);
             
         })
         .catch(function (error) {
@@ -67,7 +67,7 @@
         .then(function (response) {
             console.log(response.data);
 
-            // setBusNumber(response);
+            setBusNumber(response);
             
         })
         .catch(function (error) {

@@ -27,7 +27,7 @@ class QrcodeService
         foreach($request as $data) {         
             $station = $data['StationID'];   
             $url = 'http://127.0.0.1:8000/station/'. '?station=' . urlencode($station);
-            $qrCode = QrCode::size(250)->generate($url);
+            $qrCode = QrCode::format('png')->size(250)->generate($url);
             $this->qrcodeRepo->create([
                 'station_id' => $data['StationID'],
                 'station_name' => $data['StationName']['Zh_tw'],

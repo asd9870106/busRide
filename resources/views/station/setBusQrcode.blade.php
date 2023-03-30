@@ -11,7 +11,7 @@
         <div id="Div_foundation_list">
             {{-- 搜尋欄位 --}}
             <div class="row justify-content-center">
-                <form action="{{ route('get_bus_qrcode') }}" method="post">
+                <form action="{{ route('get_driver_qrcode') }}" method="post">
                     @csrf
                     <div class="forminput">
                         <label class="formtext m-3" for="route">公車路線:</label>
