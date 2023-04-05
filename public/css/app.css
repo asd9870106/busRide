@@ -58,7 +58,7 @@
 
 .busNumber {
     width: 10em;
-    height: 7em;
+    height: 8em;
     overflow: auto;
 }
 
@@ -195,6 +195,6 @@ input.bus {
     border: none;
 }
 
-.busqrcode{
+.busqrcode {
     background-color: rgb(255, 255, 255);
 }

@@ -6,7 +6,7 @@
 
     function init() {
         getBusStation();
-        // getBusNumber();
+        getBusNumber();
     }
 
     function getBusStation() {
@@ -17,27 +17,11 @@
         })
         .then(function (response) {
             console.log(response.data);
-            setQrcode(response);
             setBusdata(response);
             
         })
         .catch(function (error) {
             console.log(error);
-            return;
-        })
-    }
-    
-    function setQrcode(data) {
-        let route = "{{ route('create_station_qrcode') }}"
-        axios({
-            url: route,
-            method: 'post',
-            data: data
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
             return;
         })
     }
@@ -75,21 +59,6 @@
             return;
         })
     }
-
-    // function setQrcode(data) {
-    //     let route = "{{ route('create_station_qrcode') }}"
-    //     axios({
-    //         url: route,
-    //         method: 'POST',
-    //         data: data
-    //     })
-    //     .then(function (response) {
-    //         console.log(response);
-    //     })
-    //     .catch(function (error) {
-    //         return;
-    //     })
-    // }
 
     function setBusNumber(data){
         console.log(data);

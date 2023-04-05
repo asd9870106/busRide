@@ -8,7 +8,7 @@
     }
 
     function getBusData() {    
-        let route = "{{ route('get_bus_data')}}";
+        let route = "{{ route('get_bus_station')}}";
         axios({
             url: route,
             method: "get",
@@ -20,18 +20,20 @@
             return;
         })     
     }
-    function getQrCode() {
-        let route = "{{ route('get_QR_code') }}"
-        axios({
-            url: route,
-            method: "get",
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            return 404;
-        })
+
+    var x = document.getElementById("demo");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude + 
+        "<br>Longitude: " + position.coords.longitude;
     }
 
 

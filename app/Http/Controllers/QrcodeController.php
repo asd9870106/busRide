@@ -7,7 +7,7 @@
     class QrcodeController extends Controller
     {
         public function index() {
-            return view('qrcode.index');
+            return view('station.example');
         }
     
         public function generate(Request $request) {

@@ -13,13 +13,91 @@
 
     }
 
+
     async function init() {
-        
         let taipeiStops = await getTaipeiStop();
         let newTaipeiStops = await getNewTaipeiStop();
         setBusStatus(taipeiStops, newTaipeiStops);
         setBusData(taipeiStops, newTaipeiStops);
+        checkStop();
     }
+
+    async function getStationData() {
+        let route = "{{ route('get_station_data')}}";
+        let data = '';
+        await axios({
+            url: route,
+            method: "get",
+            params: {
+                'stationId' : station
+            }
+        })
+        .then(function (response) {
+            console.log(response.data);
+            data = response.data;
+        })
+        .catch(function (error) {
+        })     
+        return data;
+    }
+
+    function checkStop() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(checkPosition);
+        } else {
+            Swal.fire({
+                title: '請到公車站牌附近',
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonText: '確定',
+                }).then((result) => {
+                    checkStop();
+                })
+        }
+    }
+
+    async function checkPosition(position) {
+        let stationData = await getStationData();
+        let latitude1 = stationData[0].StopPosition.PositionLat;
+        let longitude1 = stationData[0].StopPosition.PositionLon;
+        // let latitude2 = 25.08002;
+        // let longitude2 = 121.38110;
+        let latitude2 = 25.080277;
+        let longitude2 = 121.378887;
+        // let latitude2 = position.coords.latitude; 
+        // let longitude2 = position.coords.longitude;
+        let distance = getDistanceFromLatLonInM(latitude1, longitude1, latitude2, longitude2);
+        console.log(distance);
+        if(distance <= 15) {
+
+        } else {
+            Swal.fire({
+                title: '請到公車站牌附近',
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonText: '確定',
+                }).then((result) => {
+                    checkStop();
+                })
+        }
+    }
+
+    function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
+        const R = 6371e3; // 地球的半徑 meters
+        const dLat = deg2rad(lat2 - lat1);
+        const dLon = deg2rad(lon2 - lon1);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const d = R * c; // 距離 meter
+        return d;
+    }
+
+    function deg2rad(deg) {
+        return deg * (Math.PI/180);
+    }
+
 
     async function getTaipeiStop() {    
         let route = "{{ route('get_taipei_stop')}}";
@@ -51,6 +129,7 @@
             }
         })
         .then(function (response) {
+            // console.log(response.data);
             data = response.data;
         })
         .catch(function (error) {

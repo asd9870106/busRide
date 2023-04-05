@@ -22,7 +22,7 @@ Route::group(['prefix' => 'station'], function () {
     Route::get('/', 'App\Http\Controllers\StationBusController@detail');
     Route::get('/qrcode', 'App\Http\Controllers\StationBusController@main')->name('set_station_qrcode');
     Route::get('/stationqrcode', 'App\Http\Controllers\StationBusController@busQrcode')->name('set_bus_qrcode');
-    Route::get('/getstationqrcode', 'App\Http\Controllers\GetDataController@getStationQrcode')->name('get_station_qrcode');
+    Route::post('/getstationqrcode', 'App\Http\Controllers\StationBusController@generate')->name('get_station_qrcode');
     Route::post('/getdriverqrcode', 'App\Http\Controllers\StationBusController@getBusQrcode')->name('get_driver_qrcode');
     Route::post('/', 'App\Http\Controllers\StationBusController@create')->name('bus_rifo_create');
 });
@@ -57,9 +57,9 @@ Route::group(['prefix' => 'create'], function () {
 // 取得資料
 Route::get('/getTaipeiStop', 'App\Http\Controllers\GetDataController@getTaipeiStop')->name('get_taipei_stop');
 Route::get('/getNewTaipeiStop', 'App\Http\Controllers\GetDataController@getNewTaipeiStop')->name('get_newtaipei_stop');
+Route::get('/getStationData', 'App\Http\Controllers\GetDataController@getStationData')->name('get_station_data');
 Route::get('/getBusdata', 'App\Http\Controllers\GetDataController@getBusStation')->name('get_bus_station');
 Route::get('/getBusNumber', 'App\Http\Controllers\GetDataController@getBusNumber')->name('get_bus_number');
-Route::get('/getqrcode', 'App\Http\Controllers\GetDataController@setQrCode')->name('get_QR_code');
 
 Route::get('/', 'Auth\LoginController@destroy')->name('BackStage_logout');
 
