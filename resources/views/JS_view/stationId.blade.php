@@ -7,6 +7,7 @@
     let countdown = 15;
     let timer = setInterval(updateTimer, 1000);
 
+    let userPosition;
     window.onload = function() {
         
         init();
@@ -15,11 +16,51 @@
 
 
     async function init() {
+        // checkStop();
+        let userPosition;
+
+        try {
+            // 嘗試取得使用者位置
+            userPosition = await requestUserPosition();
+            console.log('User position is available.');
+        } catch (error) {
+            // 如果取得位置失敗，顯示提示訊息
+            console.log(error.message);
+            Swal.fire({
+                title: '請提供位置訊息',
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonText: '確定',
+                }).then((result) => {
+                    init();
+                })
+            console.log('Please allow access to your location.');
+            return;
+        }
         let taipeiStops = await getTaipeiStop();
         let newTaipeiStops = await getNewTaipeiStop();
         setBusStatus(taipeiStops, newTaipeiStops);
         setBusData(taipeiStops, newTaipeiStops);
-        checkStop();
+        // 在這裡繼續執行其他操作
+    }
+
+    function requestUserPosition() {
+        return new Promise((resolve, reject) => {
+            if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                const userPosition = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+                };
+                console.log(`Latitude: ${userPosition.latitude}, Longitude: ${userPosition.longitude}`);
+                resolve(userPosition);
+            }, error => {
+                reject(error);
+            });
+            } else {
+            reject(new Error('Geolocation is not supported by this browser.'));
+            }
+        });
     }
 
     async function getStationData() {
@@ -50,8 +91,6 @@
                 icon: 'warning',
                 showCancelButton: false,
                 confirmButtonText: '確定',
-                }).then((result) => {
-                    checkStop();
                 })
         }
     }
@@ -69,7 +108,7 @@
         let distance = getDistanceFromLatLonInM(latitude1, longitude1, latitude2, longitude2);
         console.log(distance);
         if(distance <= 15) {
-
+            userPosition = true;
         } else {
             Swal.fire({
                 title: '請到公車站牌附近',
@@ -77,7 +116,7 @@
                 showCancelButton: false,
                 confirmButtonText: '確定',
                 }).then((result) => {
-                    checkStop();
+                    userPosition = false;
                 })
         }
     }
@@ -241,6 +280,10 @@
     }
 
     function onFormSubmit() {
+        checkStop();
+        if(!userPosition){
+            return;
+        }
         let check = verifySubmit();
         if(!check) {
             return;
