@@ -16,8 +16,6 @@ import 'bootstrap';
 import axios from 'axios';
 window.axios = axios;
 
-import QRCode from 'qrcode';
-window.QRCode = QRCode;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
