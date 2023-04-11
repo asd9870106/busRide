@@ -39,7 +39,7 @@ class StationBusController extends Controller
 
     public function example()
     {
-        return view('example');
+        return view('station.example');
     }
 
     public function qrcode()

@@ -120,7 +120,7 @@ input[type="radio"]:checked:after {
     font-size: 3vw;
 }
 
-img {
+img.busType {
     max-width: 20%;
     max-height: 20%;
     /* height:auto;

@@ -51,7 +51,7 @@
                       </button> --}}
                     <!-- Button trigger modal -->
                     <button type="button" class="rifoButton" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="rifoModel()">
-                        預約資訊
+                        查看預約資訊
                     </button>
                     {{-- <button type="button" id="openModalButton" class="rifoButton" onclick="rifoModel()">預約資訊</button> --}}
                 </div>

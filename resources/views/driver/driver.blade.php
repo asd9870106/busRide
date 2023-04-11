@@ -65,13 +65,13 @@
                             <tr>
                                 <td>
                                     <div class="image general d-none">
-                                        <img class="m-3" src="{{asset('/photo/test4.jpg')}}" alt="一般民眾">
+                                        <img class="m-3 busType" src="{{asset('/photo/test4.jpg')}}" alt="一般民眾">
                                     </div>
                                     <div class="image fraternity d-none">
-                                        <img class="m-3" src="{{asset('/photo/test2.jpg')}}" alt="博愛座">
+                                        <img class="m-3 busType" src="{{asset('/photo/test2.jpg')}}" alt="博愛座">
                                     </div>
                                     <div class="image accessible d-none">
-                                        <img class="m-3" src="{{asset('/photo/test3.png')}}" alt="輪椅">
+                                        <img class="m-3 busType" src="{{asset('/photo/test3.png')}}" alt="輪椅">
                                     </div>
                                 </td>
                                 <td>

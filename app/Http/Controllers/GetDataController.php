@@ -104,6 +104,7 @@ class GetDataController extends Controller
         return $busEstimatedTime;
     }
 
+    // 取的站牌經緯度
     public function getStationData(Request $request) {
         $data = $request->stationId;
         // 取得 Access Token
@@ -122,7 +123,7 @@ class GetDataController extends Controller
         
         // 取得台北市站位資料
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://tdx.transportdata.tw/api/advanced/v2/Bus/Stop/City/NewTaipei/PassThrough/Station/$data?%24select=StopName%2CStopPosition%2CStationID&%24top=30&%24format=JSON");
+        curl_setopt($ch, CURLOPT_URL, "https://tdx.transportdata.tw/api/advanced/v2/Bus/Stop/City/Taipei/PassThrough/Station/$data?%24select=StopName%2CStopPosition%2CStationID&%24top=30&%24format=JSON");
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('authorization: Bearer '.$access_token));
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

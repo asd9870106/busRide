@@ -25,6 +25,9 @@
         {!! QrCode::size(100)->generate(Request::url()); !!}
         <p>Scan me to return to the original page.</p>
     </div>
+    <script src="https://cdn.staticfile.org/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <div class="m-3" id="qrcode"></div>
+
     @include('JS_view.example')
 </body>
 </html>

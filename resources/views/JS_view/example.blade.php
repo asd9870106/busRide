@@ -4,7 +4,6 @@
     window.onload = function() {
         
         getBusData();
-        getQrCode();
     }
 
     function getBusData() {    
@@ -36,5 +35,17 @@
         "<br>Longitude: " + position.coords.longitude;
     }
 
+    // 定義QR碼容器元素.
+    var qrcodeContainer = document.getElementById('qrcode');
+
+    // 定義QRCode實例
+    var qrcode = new QRCode(qrcodeContainer, {
+    text: 'Hello, world!', // QR碼內容
+    width: 256, // QR碼寬度
+    height: 256, // QR碼高度
+    colorDark : '#000000', // QR碼顏色
+    colorLight : '#ffffff', // QR碼背景顏色
+    correctLevel : QRCode.CorrectLevel.H // QR碼容錯等級
+    });
 
 </script>

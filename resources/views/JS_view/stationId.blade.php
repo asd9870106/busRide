@@ -62,10 +62,10 @@
         let longitude1 = stationData[0].StopPosition.PositionLon;
         // let latitude2 = 25.08002;
         // let longitude2 = 121.38110;
-        let latitude2 = 25.080277;
-        let longitude2 = 121.378887;
-        // let latitude2 = position.coords.latitude; 
-        // let longitude2 = position.coords.longitude;
+        // let latitude2 = 25.080277;
+        // let longitude2 = 121.378887;
+        let latitude2 = position.coords.latitude; 
+        let longitude2 = position.coords.longitude;
         let distance = getDistanceFromLatLonInM(latitude1, longitude1, latitude2, longitude2);
         console.log(distance);
         if(distance <= 15) {
@@ -146,6 +146,7 @@
             if(data[i]['StopStatus'] === 0 || data[i]['StopStatus'] === 1){
                 const divComponent = document.querySelector(".divClone").cloneNode(true);
                 const trComponent = document.querySelector(".tr_rifo").cloneNode(true);
+                divComponent.querySelector(".custom-control-input").classList.add('busCheck');
                 divComponent.querySelector(".custom-control-input").setAttribute('id', 'rideInfo_bus_checkbox' + [i]);
                 divComponent.querySelector(".custom-control-input").setAttribute('name', 'rideInfo_checkbox_type' + [i]);
                 divComponent.querySelector(".custom-control-input").setAttribute('value', data[i]['RouteName']['Zh_tw']);
@@ -153,6 +154,7 @@
                 divComponent.querySelector(".bustext").textContent = data[i]['RouteName']['Zh_tw'];
                 trComponent.classList.remove('d-none');
                 trComponent.querySelector(".route_name").textContent = data[i]['RouteName']['Zh_tw'];
+                document.querySelector("#rideInfo_type_checkbox_99").checked = true;
 
                 divComponent.classList.remove('d-none');
 
@@ -239,6 +241,10 @@
     }
 
     function onFormSubmit() {
+        let check = verifySubmit();
+        if(!check) {
+            return;
+        }
         const busNumber = document.querySelectorAll(".busNumber input[type=checkbox]:checked");
         const rideInfo = document.querySelectorAll(".rideInfo input[type=checkbox]:checked");
         const stationName = document.querySelector('#bus_name').textContent;
@@ -375,6 +381,20 @@
                     type.textContent = '已預約';
                 } 
             }
+        }
+    }
+
+    function verifySubmit() {
+        const busNumber = document.querySelectorAll(".busNumber input[type=checkbox]:checked");
+        if(busNumber.length !== 0) {
+            return true;
+        } else {
+            Swal.fire({
+                title: '請填寫乘車資訊',
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonText: '確定',
+                })
         }
     }
 </script>
