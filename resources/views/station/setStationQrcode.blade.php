@@ -11,22 +11,20 @@
         
         <div id="Div_foundation_list">
             {{-- 搜尋欄位 --}}
+            <div id="qrcode"></div>
             <div class="row justify-content-center">
-                <form action="{{ route('get_station_qrcode') }}" method="post">
-                    @csrf
                     <div class="forminput">
-                        <label class="formtext m-3" for="station">stationId :</label>
+                        <label class="formtext m-3" for="station">站牌 :</label>
                         <input type="text" name="station" id="station" class="bus">
+                        <button class="formButton m-3" onclick="onSubmit()">搜尋</button>
                     </div>
-                    <button class="formButton m-3" type="submit">搜尋</button>
-                </form>
                 
             </div>
             @yield('test') 
         </div>
         <div class="row">
             <div class="cos-12 table-responsive">
-                <table class="table table-bordered align-middle text-center busqrcode">
+                <table class="table table-bordered align-middle text-center busqrcode d-none">
                     <thead class="thead-light">
                         <tr>
                             <th style="width:15%">站牌</th>
@@ -37,10 +35,10 @@
                     </thead>
                     <tbody class="stationQrcode">
                         <tr class="">
-                            <td class="stopName">富貴森林公園</td>
-                            <td id="qrcode"><div id="qrcode"></div></td>
-                            {{-- <td class="stopName">富貴森林公園</td>
-                            <td class=" qrcode"><div id="qrcodes"></div></td> --}}
+                            <td class="stopName0"></td>
+                            <td class="qrcode"><div id="qrcode"></div></td>
+                            <td class="stopName1"></td>
+                            <td class="qrcode"><div id="qrcode1"></div></td>
                         </tr>
                     </tbody>
                 </table>

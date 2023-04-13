@@ -24,5 +24,12 @@ class StationRepository
             return ['error' => $e->getMessage()];
         }
     }
+    
+    public function getStationId($station_name) 
+    {
+        return $this->station->where('station_name', $station_name)
+                            ->select('station_id', 'station_address', 'station_name')
+                            ->get();
+    }
 
 }

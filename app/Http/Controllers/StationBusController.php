@@ -5,16 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Services\RideInformationService;
+use App\Services\StationService;
+
 use Auth;
 class StationBusController extends Controller
 {
-    protected $rideInformationService;
+    protected $rideInformationService,
+              $StationService;
+
 
     public function __construct(
         RideInformationService $rideInformationService,
+        StationService $StationService,
     )
     {
         $this->rideInformationService = $rideInformationService;
+        $this->StationService = $StationService;
     }
 
     public function main()
@@ -61,7 +67,17 @@ class StationBusController extends Controller
             }
         } 
     }
-    
+    // 取得站牌的stationId
+    public function getStationId(Request $request) {
+
+        $station = $request->station;
+        $table = $this->StationService->getStationId($station);
+        if ($table) {
+            return response($table, 200);
+        }
+        return response('', 404);
+    }
+
     public function generate(Request $request) {
         $request->validate([
             'station' => 'required|string',

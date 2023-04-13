@@ -29,4 +29,10 @@ class StationService
             ]);
         }
     }
+
+    public function getStationId($request)
+    {
+        $table = $this->stationRepo->getStationId($request);
+        return $table;
+    }
 }
