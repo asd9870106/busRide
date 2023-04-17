@@ -50,7 +50,7 @@ Route::group(['prefix' => 'create'], function () {
     Route::get('/', 'App\Http\Controllers\GetDataController@index');
     Route::post('/station', 'App\Http\Controllers\GetDataController@createStationQrcode')->name('create_station_qrcode');
     Route::post('/driver', 'App\Http\Controllers\GetDataController@createDriverQrcode')->name('create_driver_qrcode');
-    Route::post('/table', 'App\Http\Controllers\GetDataController@create')->name('create_bus_station');
+    Route::POST('/table', 'App\Http\Controllers\GetDataController@create')->name('create_bus_station');
     Route::post('/createBusNumber', 'App\Http\Controllers\GetDataController@createBusNumber')->name('create_bus_number');
 });
 

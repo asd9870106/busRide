@@ -20,23 +20,28 @@
             @yield('test') 
         </div>
         <div class="row">
+            <div id="canvas"></div>
             
             <div class="cos-12 table-responsive">
                 <table class="table table-bordered align-middle text-center busqrcode d-none">
                     <thead class="thead-light">
                         <tr>
-                            <th style="width:15%">站牌</th>
-                            <th style="width:35%">QR code</th>
-                            <th style="width:15%">站牌</th>
-                            <th style="width:35%">QR code</th>
+                            <th style="width:10%">站牌</th>
+                            <th style="width:28%">地址</th>
+                            <th style="width:12%">QR code</th>
+                            <th style="width:10%">站牌</th>
+                            <th style="width:28%">地址</th>
+                            <th style="width:12%">QR code</th>
                         </tr>
                     </thead>
                     <tbody class="stationQrcode">
                         <tr class="">
                             <td class="stopName0"></td>
-                            <td class="qrcode" id="qrcode0"></td>
+                            <td class="stopAddress0"></td>
+                            <td class="qrcode"><img class="d-none image" id="image0" src="" alt=""></td>
                             <td class="stopName1"></td>
-                            <td class="qrcode" id="qrcode1"></td>
+                            <td class="stopAddress1"></td>
+                            <td class="qrcode"><img class="d-none image" id="image1" src="" alt=""></td>
                         </tr>
                     </tbody>
                 </table>

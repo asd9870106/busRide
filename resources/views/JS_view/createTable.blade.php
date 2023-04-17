@@ -4,54 +4,73 @@
         init();
     }
 
-    function init() {
-        getBusStation();
-        getNewTaipeiStation();
+    async function init() {
+        let taipeiData = await getBusStation();
+        let newTaipeiData = await getNewTaipeiStation();
+        setBusdata(taipeiData, newTaipeiData);
         getBusNumber();
     }
 
     // 取得台北市站牌資訊
-    function getBusStation() {
+    async function getBusStation() {
         let route = "{{ route('get_taipei_station')}}"
-        axios({
+        let data;
+        await axios({
             url:route,
             method:"GET",
         })
         .then(function (response) {
             console.log(response.data);
-            setBusdata(response);
+            data = response.data;
             
         })
         .catch(function (error) {
             console.log(error);
             return;
         })
+        return data;
     }
     // 取得新北市站牌資訊
-    function getNewTaipeiStation() {
+    async function getNewTaipeiStation() {
         let route = "{{ route('get_newtaipei_station')}}"
-        axios({
+        let data;
+        await axios({
             url:route,
             method:"GET",
         })
         .then(function (response) {
             console.log(response.data);
-            setBusdata(response);
+            data = response.data;
             
         })
         .catch(function (error) {
             console.log(error);
             return;
         })
+        return data;
     }
 
-    function setBusdata(data) {
+    function setBusdata(taipeiData, newTaipeiData) {
+
+
+        let mergedArray = taipeiData.concat(newTaipeiData);
+
+        let uniqueArray = mergedArray.filter((value, index, self) => {
+            return self.findIndex(item => item.StationID === value.StationID) === index;
+        });
+
+        let data = uniqueArray.sort((a, b) => {
+            return a.StationID - b.StationID;
+        });
         console.log(data);
+
         let route = "{{ route('create_bus_station') }}"
         axios({
             url:route,
             method: "POST",
-            data: data
+            data: {
+                'data' : data
+            }
         })
         .then(function (response) {
             console.log(response.data);

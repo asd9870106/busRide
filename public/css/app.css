@@ -198,3 +198,8 @@ input.bus {
 .busqrcode {
     background-color: rgb(255, 255, 255);
 }
+
+.image {
+    width: 10em;
+    height: 10em;
+}
