@@ -7,7 +7,7 @@
     }
 
     function getBusData() {    
-        let route = "{{ route('get_bus_station')}}";
+        let route = "{{ route('get_taipei_stop')}}";
         axios({
             url: route,
             method: "get",
