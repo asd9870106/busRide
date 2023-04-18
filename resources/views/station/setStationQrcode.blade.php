@@ -35,13 +35,13 @@
                         </tr>
                     </thead>
                     <tbody class="stationQrcode">
-                        <tr class="">
+                        <tr class="tr-template">
                             <td class="stopName0"></td>
                             <td class="stopAddress0"></td>
-                            <td class="qrcode"><img class="d-none image" id="image0" src="" alt=""></td>
+                            <td class="qrcode"><img class="image" id="image0" src="" alt=""></td>
                             <td class="stopName1"></td>
                             <td class="stopAddress1"></td>
-                            <td class="qrcode"><img class="d-none image" id="image1" src="" alt=""></td>
+                            <td class="qrcode"><img class="image" id="image1" src="" alt=""></td>
                         </tr>
                     </tbody>
                 </table>

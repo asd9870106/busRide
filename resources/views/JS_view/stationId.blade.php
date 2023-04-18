@@ -47,10 +47,10 @@
     function requestUserPosition() {
         return new Promise((resolve, reject) => {
             if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
+                navigator.geolocation.getCurrentPosition(position => {
                 const userPosition = {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
                 };
                 console.log(`Latitude: ${userPosition.latitude}, Longitude: ${userPosition.longitude}`);
                 resolve(userPosition);
@@ -58,7 +58,7 @@
                 reject(error);
             });
             } else {
-            reject(new Error('Geolocation is not supported by this browser.'));
+                reject(new Error('Geolocation is not supported by this browser.'));
             }
         });
     }

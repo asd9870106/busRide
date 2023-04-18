@@ -32,20 +32,36 @@
     }
 
     function setQrcode(data) {
-        
+        let trComponent;
+        let cloneTable = clearTable();
+        let table = document.querySelector('.stationQrcode');
+
         document.querySelector('.busqrcode').classList.remove('d-none');
-        document.querySelector('.stopName0').textContent = data[0].station_name;
-        document.querySelector('.stopName1').textContent = data[1].station_name;
-        document.querySelector('.stopAddress0').textContent = data[0].station_address;
-        document.querySelector('.stopAddress1').textContent = data[1].station_address;
-        let data0 = data[0].station_id;
-        let data1 = data[1].station_id;
-        let stationId0 = document.getElementById('image0');
-        let stationId1 = document.getElementById('image1');
+        for(let i = 0; i < data.length; i=i+2){
+            trComponent = cloneTable.cloneNode(true);
+            trComponent.querySelector('.stopName0').textContent = data[i].station_name;
+            trComponent.querySelector('.stopName1').textContent = data[i+1].station_name;
+            trComponent.querySelector('.stopAddress0').textContent = data[i].station_address;
+            trComponent.querySelector('.stopAddress1').textContent = data[i+1].station_address;
+            let stationId0 = data[i].station_id;
+            let stationId1 = data[i+1].station_id;
+            let image0 = trComponent.querySelector('#image0');
+            let image1 = trComponent.querySelector('#image1');
+    
+            getQrcode(stationId0, image0);
+            getQrcode(stationId1, image1);       
+            table.append(trComponent); 
+        }
 
-        getQrcode(data0, stationId0);
-        getQrcode(data1, stationId1);        
+    }
 
+    function clearTable() {
+        let table = document.querySelectorAll('.tr-template');
+        let originalTable = table[0];
+        for(i=0; i<table.length; i++) {
+            table[i].parentNode.removeChild(table[i]);
+        }
+        return originalTable;
     }
 
     function getQrcode(stationId, data){
