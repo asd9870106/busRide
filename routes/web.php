@@ -23,6 +23,7 @@ Route::group(['prefix' => 'station'], function () {
     Route::get('/qrcode', 'App\Http\Controllers\StationBusController@main')->name('set_station_qrcode');
     Route::get('/stationqrcode', 'App\Http\Controllers\StationBusController@busQrcode')->name('set_bus_qrcode');
     Route::get('/getstationid', 'App\Http\Controllers\StationBusController@getStationId')->name('get_stationid');
+    Route::get('/getbusroute', 'App\Http\Controllers\StationBusController@getBusRoute')->name('get_busroute');
     Route::post('/getstationqrcode', 'App\Http\Controllers\StationBusController@generate')->name('get_station_qrcode');
     Route::post('/getdriverqrcode', 'App\Http\Controllers\StationBusController@getBusQrcode')->name('get_driver_qrcode');
     Route::post('/', 'App\Http\Controllers\StationBusController@create')->name('bus_rifo_create');
@@ -50,7 +51,7 @@ Route::group(['prefix' => 'create'], function () {
     Route::get('/', 'App\Http\Controllers\GetDataController@index');
     Route::post('/station', 'App\Http\Controllers\GetDataController@createStationQrcode')->name('create_station_qrcode');
     Route::post('/driver', 'App\Http\Controllers\GetDataController@createDriverQrcode')->name('create_driver_qrcode');
-    Route::POST('/table', 'App\Http\Controllers\GetDataController@create')->name('create_bus_station');
+    Route::post('/table', 'App\Http\Controllers\GetDataController@create')->name('create_bus_station');
     Route::post('/createBusNumber', 'App\Http\Controllers\GetDataController@createBusNumber')->name('create_bus_number');
 });
 

@@ -27,6 +27,7 @@ class StationBusController extends Controller
     {
         return view('station.setStationQrcode');
     }
+
     public function busQrcode()
     {
         return view('station.setBusQrcode');
@@ -69,6 +70,16 @@ class StationBusController extends Controller
     }
     // 取得站牌的stationId
     public function getStationId(Request $request) {
+
+        $station = $request->station;
+        $table = $this->StationService->getStationId($station);
+        if ($table) {
+            return response($table, 200);
+        }
+        return response('', 404);
+    }
+    
+    public function getBusRoute(Request $request) {
 
         $station = $request->station;
         $table = $this->StationService->getStationId($station);

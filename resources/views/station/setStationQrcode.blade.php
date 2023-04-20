@@ -50,6 +50,6 @@
     </div>
 </div>
 
-@include('JS_view.qrcode')
+@include('JS_view.stationQrcode')
 
 @endsection

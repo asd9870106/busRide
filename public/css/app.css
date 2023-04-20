@@ -189,6 +189,7 @@ img.busType {
 input.bus {
     width: 10em;
     height: 2em;
+    padding: 10px;
     outline: none;
     color: #000000;
     border-radius: 6px;
