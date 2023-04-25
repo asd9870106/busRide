@@ -55,6 +55,15 @@ Route::group(['prefix' => 'create'], function () {
     Route::post('/createBusNumber', 'App\Http\Controllers\GetDataController@createBusNumber')->name('create_bus_number');
 });
 
+Route::group(['prefix' => 'search'], function () {
+    Route::get('/nearby', 'App\Http\Controllers\SearchController@nearby')->name('search_nearby');
+    Route::get('/destination', 'App\Http\Controllers\SearchController@destination')->name('search_destination');
+    Route::get('/getnearbystation', 'App\Http\Controllers\SearchController@getNearbyStation')->name('get_nearby_station');
+    Route::get('/getdestinationstation', 'App\Http\Controllers\SearchController@getDestinationStation')->name('get_destination_station');
+});
+
+
+
 
 // 取得資料
 Route::get('/getTaipeiStop', 'App\Http\Controllers\GetDataController@getTaipeiStop')->name('get_taipei_stop');

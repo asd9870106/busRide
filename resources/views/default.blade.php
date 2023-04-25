@@ -6,6 +6,9 @@
     <title>busServcie</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @vite(['resources/js/app.js'])
+
+    <script src="https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.3.0/ol.css">
 </head>
 @yield('header')
 <body>
