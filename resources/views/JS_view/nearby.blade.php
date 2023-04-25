@@ -30,6 +30,35 @@
             console.log('Please allow access to your location.');
             return;
         }
+        console.log(userPosition);
+        var map0 = new ol.Map({
+            target: 'map0',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM(),
+                }),
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([userPosition.longitude, userPosition.latitude]),
+                zoom: 17,
+            }),
+        });
+
+        var map1 = new ol.Map({
+            target: 'map1',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM(),
+                }),
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([userPosition.longitude, userPosition.latitude]),
+                zoom: 17,
+            }),
+        });
+        map0.on('click', clickHandler);
+        map1.on('click', clickHandler);
+
     }
 
     function requestUserPosition() {
@@ -58,7 +87,7 @@
         // 25.043932220845907, 121.53437756980118 北科
         LAT = 25.043932220845907;
         LON = 121.53437756980118;
-        let distanceInMeters = 500;
+        let distanceInMeters = 200;
         let data = 1;
         let route = "{{ route('get_nearby_station')}}"
         if(data !== ''){
@@ -104,7 +133,9 @@
         let trComponent;
         let cloneTable = clearTable();
         let table = document.querySelector('.stationQrcode');
-
+        const filteredData = data.filter(item => item.StationAddress);
+        data = filteredData;
+        console.log(data);
         document.querySelector('.busqrcode').classList.remove('d-none');
         for(let i = 0; i < data.length; i=i+2){
             trComponent = cloneTable.cloneNode(true);
@@ -116,9 +147,9 @@
             let stationId1 = data[i+1].StationID;
             let image0 = trComponent.querySelector('#image0');
             let image1 = trComponent.querySelector('#image1');
-    
             getQrcode(stationId0, image0);
             getQrcode(stationId1, image1);       
+            
             table.append(trComponent); 
         }
     }
@@ -154,21 +185,10 @@
         })
     }
 
+    function clickHandler(event) {
+        let coordinate = event.coordinate;
+        let lonlat = ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326');
+        console.log('Longitude: ' + lonlat[0] + ' Latitude: ' + lonlat[1]);
+    }
 
-    var map = new ol.Map({
-        target: 'map',
-        layers: [
-            new ol.layer.Tile({
-                source: new ol.source.OSM(),
-            }),
-        ],
-        view: new ol.View({
-            center: ol.proj.fromLonLat([120.982, 24.799]),
-            zoom: 10,
-        }),
-    });
-    
-    map.on('click', function(e) {
-        document.getElementById('coordinates').innerHTML = 'Latitude: ' + e.coordinate[1] + '<br>Longitude: ' + e.coordinate[0];
-    });
 </script>
