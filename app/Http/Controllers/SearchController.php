@@ -10,9 +10,11 @@ class SearchController extends Controller
     public function nearby() {
         return view('search.nearby');
     }
+
     public function destination() {
         return view('search.destination');
     }
+    // 取得附近站牌stationId
     public function getNearbyStation(Request $request) {
         $LAT = $request->LAT;
         $LON = $request->LON;

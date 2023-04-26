@@ -204,3 +204,12 @@ input.bus {
     width: 10em;
     height: 10em;
 }
+
+.userposition {
+    background-color: rgb(0, 251, 13);
+    width: 8em;
+    height: 2em;
+    color: #000000;
+    border-radius: 6px;
+    border: none;
+}
