@@ -127,7 +127,7 @@
     async function getNearbyStation(lat, lon){
         let data;
         let route = "{{ route('get_nearby_station')}}"
-        let distanceInMeters = 500;
+        let distanceInMeters = 300;
         await axios({
             url : route,
             method : "GET",

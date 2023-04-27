@@ -16,6 +16,7 @@
 
 
     async function init() {
+        // checkStop();
         let userPosition;
 
         try {
@@ -81,6 +82,18 @@
         return data;
     }
 
+    function checkStop() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(checkPosition);
+        } else {
+            Swal.fire({
+                title: '請到公車站牌附近',
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonText: '確定',
+                })
+        }
+    }
 
     async function checkPosition(position) {
         let stationData = await getStationData();
@@ -94,7 +107,7 @@
         let longitude2 = position.coords.longitude;
         let distance = getDistanceFromLatLonInM(latitude1, longitude1, latitude2, longitude2);
         console.log(distance);
-        if(distance <= 15) {
+        if(distance >= 15) {
             userPosition = true;
         } else {
             Swal.fire({
