@@ -37,8 +37,8 @@
                         <tr>
                             <th style="width:15%">出發點</th>
                             <th style="width:15%">目的地</th>
-                            <th style="width:10%">經過路線</th>
-                            <th style="width:12%">QR code</th>
+                            <th style="width:10%">搭乘路線</th>
+                            <th style="width:12%">站牌QRcode</th>
                         </tr>
                     </thead>
                     <tbody class="stationQrcode">

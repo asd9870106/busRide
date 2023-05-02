@@ -58,6 +58,7 @@ Route::group(['prefix' => 'create'], function () {
 Route::group(['prefix' => 'search'], function () {
     Route::get('/nearby', 'App\Http\Controllers\SearchController@nearby')->name('search_nearby');
     Route::get('/destination', 'App\Http\Controllers\SearchController@destination')->name('search_destination');
+    Route::get('/getplanroute', 'App\Http\Controllers\SearchController@getPlanRoute')->name('get_plan_route');
     Route::get('/getnearbystation', 'App\Http\Controllers\SearchController@getNearbyStation')->name('get_nearby_station');
     Route::get('/getdestinationstation', 'App\Http\Controllers\SearchController@getDestinationStation')->name('get_destination_station');
 });

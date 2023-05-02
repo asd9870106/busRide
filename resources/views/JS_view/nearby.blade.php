@@ -22,8 +22,8 @@
             // userLat = userPosition.latitude;
             // userLon = userPosition.longitude;
             // 北科位置
-            userLat = 25.04390473817004;
-            userLon = 121.53442041114596;
+            userLat = 25.042938157385166;
+            userLon = 121.5357200537496;
             console.log('User position is available.');
         } catch (error) {
             // 如果取得位置失敗，顯示提示訊息
@@ -112,19 +112,44 @@
     async function onSubmit() {
         // 25.080393230869664, 121.3808375018755
         // 25.043932220845907, 121.53437756980118 北科
-        userLat = 25.043932220845907;
-        userLon = 121.53437756980118;
+        userLat = 25.042938157385166;
+        userLon = 121.5357200537496;
 
         let userPosition = await getNearbyStation(userLat, userLon);
         // let userStation = checkStation(userPosition);
         // console.log(userPosition);
-        setQrcode(userPosition);
+        // setQrcode(userPosition);
         if(destinationLat !== undefined || destinationLon !== undefined){
-            let destinationPosition = await getNearbyStation(destinationLat, destinationLon);
-            let data = userPosition.concat(destinationPosition)
-            setQrcode(data);
+            let planRoute = await getPlanRoute(userLat, userLon, destinationLat, destinationLon)
+            console.log(planRoute);
+            // let destinationPosition = await getNearbyStation(destinationLat, destinationLon);
+            // let data = userPosition.concat(destinationPosition)
+            // setQrcode(data);
             // let station = checkStation(userPosition, destinationPosition);
         }
+    }
+
+    async function getPlanRoute(userLat, userLon, desLat, desLon){
+        let data;
+        let route = "{{ route('get_plan_route')}}"
+        await axios({
+            url : route,
+            method : "GET",
+            params : {
+                'UserLat' : userLat,
+                'UserLon' : userLon,
+                'DesLat' : desLat,
+                'DesLon' : desLon,
+            }
+        })
+        .then(function (response) {
+            data = response.data;
+
+        })
+        .catch(function (error) {
+            return;
+        })
+        return data;
     }
 
     async function getNearbyStation(lat, lon){
@@ -158,34 +183,6 @@
         })
         return data;
     }
-
-    // async function checkStation(data0, data1) {
-    //     let userStationBus = [];
-    //     let desStationBus = [];
-    //     const filteredData0 = data0.filter(item => item.StationAddress);
-    //     const filteredData1 = data1.filter(item => item.StationAddress);
-    //     for(let i = 0; i < filteredData0.length; i++) {
-    //         userStationBus[i] = await getStationBus(filteredData0[i].StationID);
-    //     }
-    //     for(let j = 0; j < filteredData1.length; j++) {
-    //         desStationBus[j] = await getStationBus(filteredData1[j].StationID);
-    //     }   
-    //     for(let k = 0; k < userStationBus.length; k++){
-    //         for(let l = 0; l < desStationBus.length; l++){
-    //             for(let m = 0; m< userStationBus[k].length; m++) {
-    //                 for(let n=0; n <desStationBus[l].length; n++){
-    //                     if(userStationBus[k][m].StopID === desStationBus[l][n].StopID){
-    //                         console.log('nice');
-    //                     }
-    //                 }
-    //             }
-
-    //         }
-    //     }
-
-    //     console.log(userStationBus);
-    //     console.log(desStationBus);
-    // }
     
     async function getStationBus(stationID){
         let route = "{{ route('get_taipei_stop')}}";
