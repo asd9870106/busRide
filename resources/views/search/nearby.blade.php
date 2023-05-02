@@ -32,25 +32,29 @@
         </div>
         <div class="row m-3">
             <div class="cos-12 table-responsive">
-                <table class="table table-bordered align-middle text-center busqrcode d-none">
+                <table class="table table-bordered align-middle busqrcode d-none">
                     <thead class="thead-light">
                         <tr>
-                            <th style="width:10%">站牌</th>
-                            <th style="width:28%">地址</th>
-                            <th style="width:12%">QR code</th>
-                            <th style="width:10%">站牌</th>
-                            <th style="width:28%">地址</th>
+                            <th style="width:15%">出發點</th>
+                            <th style="width:15%">目的地</th>
+                            <th style="width:10%">經過路線</th>
                             <th style="width:12%">QR code</th>
                         </tr>
                     </thead>
                     <tbody class="stationQrcode">
                         <tr class="tr-template">
-                            <td class="stopName0"></td>
+                            <td class="stopName0">
+                                <span class="m-2" id="stopName"></span>
+                                <br>
+                                <span class="m-2" id="stopAddress"></span>
+                            </td>
+                            <td class="stopName1">
+                                <span class="m-2" id="stopName1"></span>
+                                <br>
+                                <span class="m-2" id="stopAddress1"></span>
+                            </td>
                             <td class="stopAddress0"></td>
-                            <td class="qrcode"><img class="image d-none" id="image0" src="" alt=""></td>
-                            <td class="stopName1"></td>
-                            <td class="stopAddress1"></td>
-                            <td class="qrcode"><img class="image d-none" id="image1" src="" alt=""></td>
+                            <td class="qrcode text-center"><img class="image d-none" id="image0" src="" alt=""></td>
                         </tr>
                     </tbody>
                 </table>

@@ -116,18 +116,21 @@
         userLon = 121.53437756980118;
 
         let userPosition = await getNearbyStation(userLat, userLon);
+        // let userStation = checkStation(userPosition);
+        // console.log(userPosition);
         setQrcode(userPosition);
         if(destinationLat !== undefined || destinationLon !== undefined){
             let destinationPosition = await getNearbyStation(destinationLat, destinationLon);
             let data = userPosition.concat(destinationPosition)
             setQrcode(data);
+            // let station = checkStation(userPosition, destinationPosition);
         }
     }
 
     async function getNearbyStation(lat, lon){
         let data;
         let route = "{{ route('get_nearby_station')}}"
-        let distanceInMeters = 300;
+        let distanceInMeters = 250;
         await axios({
             url : route,
             method : "GET",
@@ -155,7 +158,53 @@
         })
         return data;
     }
-        
+
+    // async function checkStation(data0, data1) {
+    //     let userStationBus = [];
+    //     let desStationBus = [];
+    //     const filteredData0 = data0.filter(item => item.StationAddress);
+    //     const filteredData1 = data1.filter(item => item.StationAddress);
+    //     for(let i = 0; i < filteredData0.length; i++) {
+    //         userStationBus[i] = await getStationBus(filteredData0[i].StationID);
+    //     }
+    //     for(let j = 0; j < filteredData1.length; j++) {
+    //         desStationBus[j] = await getStationBus(filteredData1[j].StationID);
+    //     }   
+    //     for(let k = 0; k < userStationBus.length; k++){
+    //         for(let l = 0; l < desStationBus.length; l++){
+    //             for(let m = 0; m< userStationBus[k].length; m++) {
+    //                 for(let n=0; n <desStationBus[l].length; n++){
+    //                     if(userStationBus[k][m].StopID === desStationBus[l][n].StopID){
+    //                         console.log('nice');
+    //                     }
+    //                 }
+    //             }
+
+    //         }
+    //     }
+
+    //     console.log(userStationBus);
+    //     console.log(desStationBus);
+    // }
+    
+    async function getStationBus(stationID){
+        let route = "{{ route('get_taipei_stop')}}";
+        let data = '';
+        await axios({
+            url: route,
+            method: "get",
+            params: {
+                'stationId' : stationID
+            }
+        })
+        .then(function (response) {
+            // console.log(response.data);
+            data = response.data;
+        })
+        .catch(function (error) {
+        })     
+        return data;
+    }
 
     function setQrcode(data) {
         let trComponent;
@@ -164,20 +213,16 @@
         const filteredData = data.filter(item => item.StationAddress);
         data = filteredData;
         document.querySelector('.busqrcode').classList.remove('d-none');
-        for(let i = 0; i < data.length; i=i+2){
+        for(let i = 0; i < data.length; i++){
             trComponent = cloneTable.cloneNode(true);
-            trComponent.querySelector('.stopName0').textContent = data[i].StationName.Zh_tw;
+            trComponent.querySelector('#stopName').textContent = "站牌 : " + data[i].StationName.Zh_tw;
+            trComponent.querySelector('#stopName1').textContent = "站牌 : " + data[i].StationName.Zh_tw;
+            trComponent.querySelector('#stopAddress').textContent = "地址 : " + data[i].StationAddress;
+            trComponent.querySelector('#stopAddress1').textContent = "地址 : " + data[i].StationAddress;
             trComponent.querySelector('.stopAddress0').textContent = data[i].StationAddress;
             let stationId0 = data[i].StationID;
             let image0 = trComponent.querySelector('#image0');
             getQrcode(stationId0, image0);
-            if(data[i+1] !== undefined){
-                trComponent.querySelector('.stopName1').textContent = data[i+1].StationName.Zh_tw;
-                trComponent.querySelector('.stopAddress1').textContent = data[i+1].StationAddress;
-                let stationId1 = data[i+1].StationID;
-                let image1 = trComponent.querySelector('#image1');
-                getQrcode(stationId1, image1);       
-            }
             table.append(trComponent); 
         }
     }
