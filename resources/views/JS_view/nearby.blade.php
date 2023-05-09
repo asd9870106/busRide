@@ -121,7 +121,8 @@
         // setQrcode(userPosition);
         if(destinationLat !== undefined || destinationLon !== undefined){
             let planRoute = await getPlanRoute(userLat, userLon, destinationLat, destinationLon)
-            console.log(planRoute);
+            // console.log(planRoute);
+            setQrcode(planRoute.data.routes);
             // let destinationPosition = await getNearbyStation(destinationLat, destinationLon);
             // let data = userPosition.concat(destinationPosition)
             // setQrcode(data);
@@ -143,6 +144,7 @@
             }
         })
         .then(function (response) {
+            console.log(response);
             data = response.data;
 
         })
@@ -203,25 +205,129 @@
         return data;
     }
 
-    function setQrcode(data) {
+    async function setQrcode(data) {
+        console.log(data);
         let trComponent;
         let cloneTable = clearTable();
         let table = document.querySelector('.stationQrcode');
-        const filteredData = data.filter(item => item.StationAddress);
-        data = filteredData;
         document.querySelector('.busqrcode').classList.remove('d-none');
-        for(let i = 0; i < data.length; i++){
-            trComponent = cloneTable.cloneNode(true);
-            trComponent.querySelector('#stopName').textContent = "站牌 : " + data[i].StationName.Zh_tw;
-            trComponent.querySelector('#stopName1').textContent = "站牌 : " + data[i].StationName.Zh_tw;
-            trComponent.querySelector('#stopAddress').textContent = "地址 : " + data[i].StationAddress;
-            trComponent.querySelector('#stopAddress1').textContent = "地址 : " + data[i].StationAddress;
-            trComponent.querySelector('.stopAddress0').textContent = data[i].StationAddress;
-            let stationId0 = data[i].StationID;
-            let image0 = trComponent.querySelector('#image0');
-            getQrcode(stationId0, image0);
-            table.append(trComponent); 
+        for(let i=0; i<data.length; i++){
+            // 不用轉乘
+            if(data[i].transfers === 0){
+                let section = data[i].sections;
+                for(let j = 0; j < section.length; j++){
+                    // 搭交通工具
+                    if(section[j].type === "transit"){
+                        if(section[j].transport.category === "Bus") {
+                            trComponent = cloneTable.cloneNode(true);
+                            let stationID = await getStationID(section[j].departure.place.name);
+                            let l = data[i].transfers;
+                            // 轉乘次數
+                            trComponent.querySelector('#transfers').textContent = data[i].transfers;
+                            // 出發站
+                            trComponent.querySelector('#departure').textContent = l+1 + ". " +  section[j].departure.place.name;
+                            // 目的地
+                            trComponent.querySelector('#arrival').textContent = section[j].arrival.place.name;
+                            // 路線
+                            trComponent.querySelector('#route').textContent = section[j].transport.name;
+                            // qrcode
+                            trComponent.querySelector('#qrcode').textContent = section[j].departure.place.name;
+                            // 票價
+                            trComponent.querySelector('#price').textContent = data[i].total_price + " 元";
+                            
+                            let stationId = stationID[0].station_id;
+                            let image = trComponent.querySelector('#image0');
+                            getQrcode(stationId, image);
+                            table.append(trComponent); 
+                        }
+                    }
+                }
+            } else {
+                let section = data[i].sections;
+                trComponent = cloneTable.cloneNode(true);
+                let l = 0;
+                for(let j = 0; j < section.length; j++){
+                    // 搭交通工具
+                    if(section[j].type === "transit"){
+                        if(section[j].transport.category === "Bus") {
+                            l = l+1;
+                            let stationID = await getStationID(section[j].departure.place.name);
+                            let embark = trComponent.querySelector('#embark').cloneNode(true);
+                            let route = trComponent.querySelector('#route').cloneNode(true);
+                            let qrcode = trComponent.querySelector('#qrcode').cloneNode(true);
+                            // 出發站
+                            embark.classList.remove('d-none');
+                            embark.querySelector('#departure').textContent = l + ". " +  section[j].departure.place.name;
+                            // 目的地
+                            embark.querySelector('#arrival').textContent = section[j].arrival.place.name;
+                            // 路線
+                            route.classList.remove('d-none');
+                            route.textContent = l + ". " + section[j].transport.name;
+                            // qrcode
+                            qrcode.classList.remove('d-none');
+                            qrcode.querySelector('#qrcodeName').textContent = section[j].departure.place.name;
+                            
+                            trComponent.querySelector('.embark').append(embark);
+                            trComponent.querySelector('.route').append(route);
+                            trComponent.querySelector('.qrcode').append(qrcode);
+
+                            let stationId = stationID[0].station_id;
+                            let image = qrcode.querySelector('#image0');
+                            getQrcode(stationId, image);
+                        }
+                    }
+                }
+                // 轉乘次數
+                trComponent.querySelector('#transfers').textContent = data[i].transfers;
+                // 票價
+                trComponent.querySelector('#price').textContent = data[i].total_price + " 元";
+                table.append(trComponent); 
+            }
         }
+        // const filteredData = data.filter(item => item.StationAddress);
+        // data = filteredData;
+        // document.querySelector('.busqrcode').classList.remove('d-none');
+        // for(let i = 0; i < data.length; i++){
+        //     trComponent = cloneTable.cloneNode(true);
+        //     trComponent.querySelector('#stopName').textContent = "站牌 : " + data[i].StationName.Zh_tw;
+        //     trComponent.querySelector('#stopName1').textContent = "站牌 : " + data[i].StationName.Zh_tw;
+        //     trComponent.querySelector('#stopAddress').textContent = "地址 : " + data[i].StationAddress;
+        //     trComponent.querySelector('#stopAddress1').textContent = "地址 : " + data[i].StationAddress;
+        //     trComponent.querySelector('.stopAddress0').textContent = data[i].StationAddress;
+        //     let stationId0 = data[i].StationID;
+        //     let image0 = trComponent.querySelector('#image0');
+        //     getQrcode(stationId0, image0);
+        //     table.append(trComponent); 
+        // }
+    }
+
+    async function getStationID(stationName) {
+        let data;
+        let route = "{{ route('get_stationid') }}"
+            await axios({
+                url : route,
+                method : "GET",
+                params : {
+                    'station' : stationName
+                }
+            })
+            .then(function (response) {
+                data = response.data;
+                if(response.data.length === 0){
+                    Swal.fire({
+                        title: '查無站牌',
+                        icon: 'warning',
+                        showCancelButton: false,
+                        confirmButtonText: '確定',
+                    });
+                } 
+            })
+            .catch(function (error) {
+                if(!error){
+                    
+                }
+            })
+        return data;
     }
 
     function clearTable() {
@@ -235,7 +341,6 @@
 
     function getQrcode(stationId, data){
         let qrcode = "http://127.0.0.1:8000/station/?station=" + stationId;
-        data.classList.remove('d-none');
         var opts = {
             errorCorrectionLevel: 'H',
             type: 'image/jpeg',

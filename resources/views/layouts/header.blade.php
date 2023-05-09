@@ -30,7 +30,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="{{ route('search_nearby') }}">查詢附近站牌</a>
-                                    <a class="dropdown-item" href="{{ route('search_destination') }}">目的地附近站牌</a>
+                                    {{-- <a class="dropdown-item" href="{{ route('search_destination') }}">目的地附近站牌</a> --}}
                                 </div>
                             </li>
                             {{-- <li class="nav-item dropdown">
