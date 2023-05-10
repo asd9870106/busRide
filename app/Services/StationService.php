@@ -25,7 +25,9 @@ class StationService
             $this->stationRepo->create([
                 'station_id' => $data['StationID'],
                 'station_name' => $data['StationName']['Zh_tw'],
-                'station_address' => $data['StationAddress']
+                'station_address' => $data['StationAddress'],
+                'position_lat' => $data['StationPosition']['PositionLat'],
+                'position_lon' => $data['StationPosition']['PositionLon']
             ]);
         }
     }

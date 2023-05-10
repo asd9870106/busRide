@@ -37,39 +37,41 @@
                         <tr>
                             <th style="width:15%">搭乘方式</th>
                             <th style="width:5%">搭乘路線</th>
-                            <th style="width:12%">站牌QRcode</th>
+                            <th style="width:20%">站牌QRcode</th>
                             <th style="width:2%">轉乘次數</th>
-                            <th style="width:3%">票價</th>
+                            <th style="width:2%">票價</th>
                         </tr>
                     </thead>
                     <tbody class="stationQrcode">
-                        <tr class="tr-template">
-                            <td class="embark">
-                                <div class="d-none" id="embark">
-                                    <span class="m-2" id="departure"></span>
-                                    <span class="m-2">⟶</span>
-                                    <span class="m-2" id="arrival"></span>
-                                </div>
-                                {{-- <br> --}}
-                                {{-- <span class="m-2" id="stopAddress"></span> --}}
-                            </td>
-                            <td class="route">
-                                <div class="m-2 d-none" id="route"></div>
-                            </td>
-                            <td class="qrcode text-center">
-                                <div class="qrcodeView d-none" id="qrcode">
-                                    <img class="image" id="image0" src="" alt="">
-                                    <div id="qrcodeName"></div>
-                                </div>
-                            </td>
-                            <td class="transfers">
-                                <span class="m-2" id="transfers"></span>
-                            </td>
-                            <td class="price">
-                                <span class="m-2" id="price"></span>
-                            </td>
-                        </tr>
+                        
                     </tbody>
+
+                    <tr class="tr-template d-none">
+                        <td class="embark">
+                            <div class="d-none" id="embark">
+                                <span class="m-2" id="departure"></span>
+                                <span class="m-2" id="dash">⟶</span>
+                                <span class="m-2" id="arrival"></span>
+                            </div>
+                            {{-- <br> --}}
+                            {{-- <span class="m-2" id="stopAddress"></span> --}}
+                        </td>
+                        <td class="route">
+                            <div class="m-2 d-none" id="route"></div>
+                        </td>
+                        <td class="qrcode text-center">
+                            <div class="qrcodeView d-none" id="qrcode">
+                                <img class="image" id="image0" src="" alt="">
+                                <div id="qrcodeName"></div>
+                            </div>
+                        </td>
+                        <td class="transfers text-center">
+                            <span class="m-2" id="transfers"></span>
+                        </td>
+                        <td class="price text-center">
+                            <span class="m-2" id="price"></span>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

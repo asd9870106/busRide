@@ -13,5 +13,7 @@ class Station extends Model
         'station_id',
         'station_name',
         'station_address',
+        'position_lat',
+        'position_lon',
     ];
 }

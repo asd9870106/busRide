@@ -96,7 +96,7 @@ class GetDataController extends Controller
         
         // 取得台北市站位資料
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://tdx.transportdata.tw/api/basic/v2/Bus/Station/City/Taipei?%24select=StationAddress%2CStationID%2CStationName&%24orderby=StationID&%24format=JSON');
+        curl_setopt($ch, CURLOPT_URL, 'https://tdx.transportdata.tw/api/basic/v2/Bus/Station/City/Taipei?%24select=StationAddress%2CStationID%2CStationName%2CStationPosition&%24orderby=StationID&%24format=JSON');
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('authorization: Bearer '.$access_token));
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -123,7 +123,7 @@ class GetDataController extends Controller
         
         // 取得台北市站位資料
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://tdx.transportdata.tw/api/basic/v2/Bus/Station/City/NewTaipei?%24select=StationAddress%2CStationID%2CStationName&%24orderby=StationID&%24format=JSON');
+        curl_setopt($ch, CURLOPT_URL, 'https://tdx.transportdata.tw/api/basic/v2/Bus/Station/City/NewTaipei?%24select=StationAddress%2CStationID%2CStationName%2CStationPosition&%24orderby=StationID&%24format=JSON');
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('authorization: Bearer '.$access_token));
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('station_id');
             $table->string('station_name');
             $table->string('station_address');
+            $table->float('position_lat');
+            $table->float('position_lon');
             $table->timestamps();
         });
     }

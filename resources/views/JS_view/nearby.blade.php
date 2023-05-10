@@ -76,6 +76,12 @@
                 })
             })
         });
+        var zoomsliderControl= new ol.control.ZoomSlider();
+        map.addControl(zoomsliderControl);
+        var scaleLineControl = new ol.control.ScaleLine({
+            units: "metric"
+        });
+        map.addControl(scaleLineControl);
         map.addLayer(markerLayer);
         
         // 25.043932220845907, 121.53437756980118 北科
@@ -222,6 +228,13 @@
                             trComponent = cloneTable.cloneNode(true);
                             let stationID = await getStationID(section[j].departure.place.name);
                             let l = data[i].transfers;
+                            trComponent.classList.remove('tr-template');
+                            trComponent.classList.remove('d-none');
+                            trComponent.querySelector('#embark').classList.remove('d-none');
+                            trComponent.querySelector('#route').classList.remove('d-none');
+                            trComponent.querySelector('#qrcode').classList.remove('d-none');
+                            trComponent.querySelector('#image0').classList.remove('d-none');
+                            trComponent.querySelector('#dash').classList.remove('d-none');
                             // 轉乘次數
                             trComponent.querySelector('#transfers').textContent = data[i].transfers;
                             // 出發站
@@ -231,12 +244,13 @@
                             // 路線
                             trComponent.querySelector('#route').textContent = section[j].transport.name;
                             // qrcode
-                            trComponent.querySelector('#qrcode').textContent = section[j].departure.place.name;
+                            trComponent.querySelector('#qrcodeName').textContent = section[j].departure.place.name;
                             // 票價
                             trComponent.querySelector('#price').textContent = data[i].total_price + " 元";
                             
                             let stationId = stationID[0].station_id;
                             let image = trComponent.querySelector('#image0');
+                            trComponent.querySelector('#qrcode');
                             getQrcode(stationId, image);
                             table.append(trComponent); 
                         }
@@ -245,10 +259,16 @@
             } else {
                 let section = data[i].sections;
                 trComponent = cloneTable.cloneNode(true);
+                trComponent.classList.remove('tr-template');
+                trComponent.classList.remove('d-none');
                 let l = 0;
+                let category = true;
                 for(let j = 0; j < section.length; j++){
                     // 搭交通工具
                     if(section[j].type === "transit"){
+                        if(section[j].transport.category === "HighwayBus") {
+                            category = false;
+                        }
                         if(section[j].transport.category === "Bus") {
                             l = l+1;
                             let stationID = await getStationID(section[j].departure.place.name);
@@ -258,6 +278,7 @@
                             // 出發站
                             embark.classList.remove('d-none');
                             embark.querySelector('#departure').textContent = l + ". " +  section[j].departure.place.name;
+                            embark.querySelector('#dash').classList.remove('d-none');
                             // 目的地
                             embark.querySelector('#arrival').textContent = section[j].arrival.place.name;
                             // 路線
@@ -265,6 +286,7 @@
                             route.textContent = l + ". " + section[j].transport.name;
                             // qrcode
                             qrcode.classList.remove('d-none');
+                            qrcode.querySelector('#image0').classList.remove('d-none');
                             qrcode.querySelector('#qrcodeName').textContent = section[j].departure.place.name;
                             
                             trComponent.querySelector('.embark').append(embark);
@@ -281,7 +303,9 @@
                 trComponent.querySelector('#transfers').textContent = data[i].transfers;
                 // 票價
                 trComponent.querySelector('#price').textContent = data[i].total_price + " 元";
-                table.append(trComponent); 
+                if(category){
+                    table.append(trComponent); 
+                }
             }
         }
         // const filteredData = data.filter(item => item.StationAddress);
@@ -331,12 +355,15 @@
     }
 
     function clearTable() {
-        let table = document.querySelectorAll('.tr-template');
-        let originalTable = table[0];
-        for(i=0; i<table.length; i++) {
-            table[i].parentNode.removeChild(table[i]);
+        let table = document.querySelector('.tr-template');
+        let tbody = document.querySelector('.stationQrcode');
+        let originalTable = document.querySelectorAll('.stationQrcode tr');
+        if(originalTable.length !== 0){
+            for(let i = 0; i < originalTable.length; i++) {
+                tbody.removeChild(originalTable[i]);
+            }
         }
-        return originalTable;
+        return table;
     }
 
     function getQrcode(stationId, data){
