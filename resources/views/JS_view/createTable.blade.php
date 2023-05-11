@@ -63,13 +63,30 @@
             return a.StationID - b.StationID;
         });
         console.log(data);
-
+        let firstData = data.splice(0, 7000);
+        let secondData = data;
+        
         let route = "{{ route('create_bus_station') }}"
+
         axios({
             url:route,
             method: "POST",
             data: {
-                'data' : data
+                'data' : firstData
+            }
+        })
+        .then(function (response) {
+            console.log(response.data);
+        })
+        .catch(function (error) {
+            return;
+        })
+
+        axios({
+            url:route,
+            method: "POST",
+            data: {
+                'data' : secondData
             }
         })
         .then(function (response) {
