@@ -17,7 +17,7 @@
                         <button class="formButton m-3" onclick="onSubmit()">搜尋</button>
                     </div> --}}
                     <div class="forminput">
-                        <label class="formtext m-3" for="route">查詢目的地附近站牌:</label>
+                        <label class="formtext m-3" for="route">查詢目的地:</label>
                         <input type="text" name="route" id="route" class="bus">
                         <button class="formButton m-3" onclick="onSubmit()">搜尋</button>
                         {{-- <button class="userposition m-3" onclick="()">回到使用者位置</button> --}}
