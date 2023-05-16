@@ -248,10 +248,28 @@
                             // 票價
                             trComponent.querySelector('#price').textContent = data[i].total_price + " 元";
                             
-                            let stationId = stationID[0].station_id;
+
+                            let deplat = section[j].departure.place.location.lat;
+                            let deplon = section[j].departure.place.location.lng;
+                            let disArray = [];
+                            for(let k = 0; k< stationID.length; k++){
+                                if(stationID[k].station_name === section[j].departure.place.name){
+                                    let distance = getDistanceFromLatLonInM(deplat, deplon, stationID[k].position_lat, stationID[k].position_lon);
+                                    let stationId = stationID[k].station_id;
+                                    disArray.push({
+                                        'distance' : distance,
+                                        'stationId' : stationId
+                                    })
+                                    // console.log(disArray);
+                                }
+                            }
+                            disArray.sort(function(a,b) {
+                                return a.distance - b.distance;
+                            });
+                            console.log(disArray);
                             let image = trComponent.querySelector('#image0');
                             trComponent.querySelector('#qrcode');
-                            getQrcode(stationId, image);
+                            getQrcode(disArray[0].stationId, image);
                             table.append(trComponent); 
                         }
                     }
@@ -337,6 +355,7 @@
             })
             .then(function (response) {
                 data = response.data;
+                console.log(data);
                 if(response.data.length === 0){
                     Swal.fire({
                         title: '查無站牌',
@@ -352,6 +371,26 @@
                 }
             })
         return data;
+    }
+
+    function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
+        console.log(lat1);
+        console.log(lon1);
+        console.log(lat2);
+        console.log(lon2);
+        const R = 6371e3; // 地球的半徑 meters
+        const dLat = deg2rad(lat2 - lat1);
+        const dLon = deg2rad(lon2 - lon1);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const d = R * c; // 距離 meter
+        return d;
+    }
+
+    function deg2rad(deg) {
+        return deg * (Math.PI/180);
     }
 
     function clearTable() {
