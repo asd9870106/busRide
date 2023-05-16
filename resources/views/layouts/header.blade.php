@@ -26,10 +26,10 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="navbarDropdownMenuLink"
                                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    查詢
+                                    路線規劃
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="{{ route('search_nearby') }}">查詢附近站牌</a>
+                                    <a class="dropdown-item" href="{{ route('search_nearby') }}">路線規劃</a>
                                     {{-- <a class="dropdown-item" href="{{ route('search_destination') }}">目的地附近站牌</a> --}}
                                 </div>
                             </li>

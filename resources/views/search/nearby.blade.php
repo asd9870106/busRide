@@ -18,8 +18,9 @@
                     </div> --}}
                     <div class="forminput">
                         <label class="formtext m-3" for="route">查詢目的地:</label>
-                        <input type="text" name="route" id="route" class="bus">
-                        <button class="formButton m-3" onclick="onSubmit()">搜尋</button>
+                        <input type="text" name="route" id="addressInput" class="bus">
+                        <button class="formButton m-3" onclick="searchAddress()">搜尋</button>
+                        <button class="formButton " onclick="onSubmit()">規劃路線</button>
                         {{-- <button class="userposition m-3" onclick="()">回到使用者位置</button> --}}
                     </div>
 

@@ -91,8 +91,84 @@
         map.on("click", handleMapClick);
 
     }
-    
 
+    function searchAddress() {
+        const markerLayers = map.getLayers().getArray().filter(layer => {
+            return layer.get('name') === 'markerLayer';
+        });
+        if (markerLayers.length > 0) {
+            map.removeLayer(markerLayers[0]);
+        }
+        let address = document.getElementById('addressInput').value;
+        if (address !== '') {
+            let url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address);
+
+            axios({
+                url : url,
+                method : "GET",
+            })
+            .then(function (response) {
+                let data = response.data;
+                console.log(data);
+                if (data.length > 0) {
+                    let result = data[0];
+                    destinationLat = result['lat'];
+                    destinationLon = result['lon'];
+                    let coordinate = [parseFloat(result.lon), parseFloat(result.lat)];
+                    map.getView().animate({ center: ol.proj.fromLonLat(coordinate), zoom: 17 });
+                        
+                    let marker = new ol.Feature({
+                        geometry: new ol.geom.Point(ol.proj.fromLonLat(coordinate))
+                    });
+
+                    let markerVectorLayer = new ol.layer.Vector({
+                        source: new ol.source.Vector({
+                            features: [marker]
+                        }),
+                        style: new ol.style.Style({
+                            image: new ol.style.Circle({
+                                radius: 6,
+                                fill: new ol.style.Fill({
+                                    color: "red"
+                                }),
+                                stroke: new ol.style.Stroke({
+                                    color: "white",
+                                    width: 2
+                                })
+                            })
+                        }),
+                        name: 'markerLayer'
+                    });
+
+                    map.addLayer(markerVectorLayer);
+                } else {
+                    Swal.fire({
+                        title: '找不到該地址',
+                        icon: 'warning',
+                        showCancelButton: false,
+                        confirmButtonText: '確定',
+                    });
+                }
+            })
+            .catch(function (error) {
+                Swal.fire({
+                    title: '地址錯誤',
+                    icon: 'warning',
+                    showCancelButton: false,
+                    confirmButtonText: '確定',
+                });
+            })
+
+        } else {
+            Swal.fire({
+                    title: '請輸入目的地',
+                    icon: 'warning',
+                    showCancelButton: false,
+                    confirmButtonText: '確定',
+                });
+        }
+    }
+    
 
     function requestUserPosition() {
         return new Promise((resolve, reject) => {
@@ -133,6 +209,13 @@
             // let data = userPosition.concat(destinationPosition)
             // setQrcode(data);
             // let station = checkStation(userPosition, destinationPosition);
+        } else {
+            Swal.fire({
+                    title: '請設定目的地',
+                    icon: 'warning',
+                    showCancelButton: false,
+                    confirmButtonText: '確定',
+                });
         }
     }
 
@@ -311,9 +394,26 @@
                             trComponent.querySelector('.route').append(route);
                             trComponent.querySelector('.qrcode').append(qrcode);
 
-                            let stationId = stationID[0].station_id;
+                            let deplat = section[j].departure.place.location.lat;
+                            let deplon = section[j].departure.place.location.lng;
+                            let disArray = [];
+                            for(let k = 0; k< stationID.length; k++){
+                                if(stationID[k].station_name === section[j].departure.place.name){
+                                    let distance = getDistanceFromLatLonInM(deplat, deplon, stationID[k].position_lat, stationID[k].position_lon);
+                                    let stationId = stationID[k].station_id;
+                                    disArray.push({
+                                        'distance' : distance,
+                                        'stationId' : stationId
+                                    })
+                                    // console.log(disArray);
+                                }
+                            }
+                            disArray.sort(function(a,b) {
+                                return a.distance - b.distance;
+                            });
+
                             let image = qrcode.querySelector('#image0');
-                            getQrcode(stationId, image);
+                            getQrcode(disArray[0].stationId, image);
                         }
                     }
                 }
@@ -326,21 +426,6 @@
                 }
             }
         }
-        // const filteredData = data.filter(item => item.StationAddress);
-        // data = filteredData;
-        // document.querySelector('.busqrcode').classList.remove('d-none');
-        // for(let i = 0; i < data.length; i++){
-        //     trComponent = cloneTable.cloneNode(true);
-        //     trComponent.querySelector('#stopName').textContent = "站牌 : " + data[i].StationName.Zh_tw;
-        //     trComponent.querySelector('#stopName1').textContent = "站牌 : " + data[i].StationName.Zh_tw;
-        //     trComponent.querySelector('#stopAddress').textContent = "地址 : " + data[i].StationAddress;
-        //     trComponent.querySelector('#stopAddress1').textContent = "地址 : " + data[i].StationAddress;
-        //     trComponent.querySelector('.stopAddress0').textContent = data[i].StationAddress;
-        //     let stationId0 = data[i].StationID;
-        //     let image0 = trComponent.querySelector('#image0');
-        //     getQrcode(stationId0, image0);
-        //     table.append(trComponent); 
-        // }
     }
 
     async function getStationID(stationName) {
@@ -374,10 +459,10 @@
     }
 
     function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
-        console.log(lat1);
-        console.log(lon1);
-        console.log(lat2);
-        console.log(lon2);
+        // console.log(lat1);
+        // console.log(lon1);
+        // console.log(lat2);
+        // console.log(lon2);
         const R = 6371e3; // 地球的半徑 meters
         const dLat = deg2rad(lat2 - lat1);
         const dLon = deg2rad(lon2 - lon1);
