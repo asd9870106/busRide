@@ -101,7 +101,7 @@
         }
         let address = document.getElementById('addressInput').value;
         if (address !== '') {
-            let url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address);
+            let url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address) + '&countrycodes=tw';
 
             axios({
                 url : url,

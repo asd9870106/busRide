@@ -39,8 +39,8 @@
                             <th style="width:15%">搭乘方式</th>
                             <th style="width:5%">搭乘路線</th>
                             <th style="width:20%">站牌QRcode</th>
-                            <th style="width:2%">轉乘次數</th>
-                            <th style="width:2%">票價</th>
+                            <th style="width:3%">轉乘次數</th>
+                            <th style="width:3%">票價</th>
                         </tr>
                     </thead>
                     <tbody class="stationQrcode">
