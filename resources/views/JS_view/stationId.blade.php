@@ -64,21 +64,35 @@
     }
 
     async function getStationData() {
-        let route = "{{ route('get_station_data')}}";
+        let route = "{{ route('get_stationid')}}";
+        let busName = document.querySelector('#bus_name').textContent
         let data = '';
         await axios({
-            url: route,
-            method: "get",
-            params: {
-                'stationId' : station
+            url : route,
+            method : "GET",
+            params : {
+                'station' : busName
             }
         })
         .then(function (response) {
             console.log(response.data);
             data = response.data;
+            if(response.data.length === 0){
+                Swal.fire({
+                    title: '查無站牌',
+                    icon: 'warning',
+                    showCancelButton: false,
+                    confirmButtonText: '確定',
+                });
+            } 
+            else {
+                setQrcode(response.data);
+            }
         })
         .catch(function (error) {
-        })     
+            if(!error){            
+            }
+        })
         return data;
     }
 
@@ -97,15 +111,21 @@
 
     async function checkPosition(position) {
         let stationData = await getStationData();
-        let latitude1 = stationData[0].StopPosition.PositionLat;
-        let longitude1 = stationData[0].StopPosition.PositionLon;
+        let stopLat;
+        let stopLon;
+        for(let i = 0; i < stationData.length; i++){
+            if(station == stationData[i].station_id){
+                stopLat = stationData[i].position_lat;
+                stopLon = stationData[i].position_lon;
+            }
+        }
         // let latitude2 = 25.08002;
         // let longitude2 = 121.38110;
         // let latitude2 = 25.080277;
         // let longitude2 = 121.378887;
-        let latitude2 = position.coords.latitude; 
-        let longitude2 = position.coords.longitude;
-        let distance = getDistanceFromLatLonInM(latitude1, longitude1, latitude2, longitude2);
+        let userLat = position.coords.latitude; 
+        let userLon = position.coords.longitude;
+        let distance = getDistanceFromLatLonInM(stopLat, stopLon, userLat, userLon);
         console.log(distance);
         if(distance >= 15) {
             userPosition = true;

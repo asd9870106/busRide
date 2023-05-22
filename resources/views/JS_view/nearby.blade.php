@@ -299,7 +299,18 @@
         let trComponent;
         let cloneTable = clearTable();
         let table = document.querySelector('.stationQrcode');
-        document.querySelector('.busqrcode').classList.remove('d-none');
+        if(data.length === 0) {
+            Swal.fire({
+                title: '找不到公車',
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonText: '確定',
+            }).then((result) => {
+                return;
+            });
+        } else {
+            document.querySelector('.busqrcode').classList.remove('d-none');
+        }
         for(let i=0; i<data.length; i++){
             // 不用轉乘
             if(data[i].transfers === 0){

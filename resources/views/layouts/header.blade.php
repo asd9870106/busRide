@@ -19,8 +19,8 @@
                                     站牌管理
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="{{ route('set_station_qrcode') }}">產生站牌 QR code</a>
-                                    <a class="dropdown-item" href="{{ route('set_bus_qrcode') }}">產生公車 QR code</a>
+                                    <a class="dropdown-item" href="{{ route('set_station_qrcode') }}">查詢站牌 QR code</a>
+                                    <a class="dropdown-item" href="{{ route('set_bus_qrcode') }}">查詢公車 QR code</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
