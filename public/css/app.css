@@ -219,3 +219,31 @@ input.bus {
     padding: 10px;
     margin: 10px;
 }
+
+.square-card {
+    padding-top: 100%;
+    /* 設定高度為寬度的百分比，此例為正方形 */
+    position: relative;
+}
+
+.square-card .card-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.search-text {
+    font-size: 18px;
+}
+
+.square-card .card-body {
+    position: relative;
+}
+
+.square-card .fa-search {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -1,20 +1,56 @@
-@extends('layouts.app')
+@extends('default')
 
-@section('content')
+@section('header')
+    @include('layouts.stationHeader')
+@endsection
+
+@section('contents')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6 mb-4">
+                    <a href="{{ route('set_bus_qrcode') }}">
+                        <div class="card square-card">
+                            <div class="card-body text-center">
+                                <i class="fa fa-search fa-lg mb-2"></i>
+                                <div class="search-text">
+                                    搜尋站牌
+                                </div>
+                            </div>
                         </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                    </a>
+                </div>
+                <div class="col-6 mb-4">
+                    <a href="{{ route('set_bus_qrcode') }}">
+                        <div class="card square-card">
+                            <div class="card-body text-center">
+                                站牌查詢
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-4">
+            <div class="row">
+                <div class="col-6">
+                    <a href="{{ route('set_bus_qrcode') }}">
+                        <div class="card square-card">
+                            <div class="card-body text-center">
+                                路線規劃
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6">
+                    <a href="{{ route('set_bus_qrcode') }}">
+                        <div class="card square-card">
+                            <div class="card-body text-center">
+                                路線規劃
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::group(['prefix' => 'station'], function () {
     Route::get('/', 'App\Http\Controllers\StationBusController@detail');
@@ -71,5 +71,5 @@ Route::get('/getBusdata', 'App\Http\Controllers\GetDataController@getBusStation'
 Route::get('/getNewtaipeiStation', 'App\Http\Controllers\GetDataController@getNewTaipeiStation')->name('get_newtaipei_station');
 Route::get('/getBusNumber', 'App\Http\Controllers\GetDataController@getBusNumber')->name('get_bus_number');
 
-Route::get('/', 'Auth\LoginController@destroy')->name('BackStage_logout');
+// Route::get('/', 'Auth\LoginController@destroy')->name('BackStage_logout');
 

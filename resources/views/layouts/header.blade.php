@@ -11,7 +11,7 @@
                     <div class="collapse navbar-collapse justify-content-center justify-content-lg-start" id="navbarNavDropdown">
                         <ul class="navbar-nav text-center">
                             <li class="nav-item">
-                                <a class="nav-link font-weight-bold" href="">首頁</a>
+                                <a class="nav-link font-weight-bold" href="/">首頁</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="navbarDropdownMenuLink"
