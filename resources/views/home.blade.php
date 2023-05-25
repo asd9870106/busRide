@@ -12,8 +12,10 @@
                 <div class="col-6 mb-4">
                     <a href="{{ route('set_bus_qrcode') }}">
                         <div class="card square-card">
-                            <div class="card-body text-center">
-                                <i class="fa fa-search fa-lg mb-2"></i>
+                            <div class="search-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="card-body text-center">                              
                                 <div class="search-text">
                                     搜尋站牌
                                 </div>
@@ -24,8 +26,13 @@
                 <div class="col-6 mb-4">
                     <a href="{{ route('set_bus_qrcode') }}">
                         <div class="card square-card">
-                            <div class="card-body text-center">
-                                站牌查詢
+                            <div class="search-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="card-body text-center">                              
+                                <div class="search-text">
+                                    搜尋站牌
+                                </div>
                             </div>
                         </div>
                     </a>

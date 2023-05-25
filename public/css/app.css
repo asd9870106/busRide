@@ -222,12 +222,11 @@ input.bus {
 
 .square-card {
     padding-top: 100%;
-    /* 設定高度為寬度的百分比，此例為正方形 */
     position: relative;
 }
 
 .square-card .card-body {
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -235,10 +234,8 @@ input.bus {
 
 .search-text {
     font-size: 18px;
-}
+    text-decoration: none;
 
-.square-card .card-body {
-    position: relative;
 }
 
 .square-card .fa-search {
@@ -246,4 +243,16 @@ input.bus {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.search-icon {
+  display: flex;
+  justify-content: center; /* 水平置中 */
+  align-items: center; /* 垂直置中 */
+  width: 50%; /* 使用相對寬度 */
+  height: 50%; /* 使用相對高度 */
+}
+
+.search-icon i {
+  font-size: auto; /* 或設定為相對於容器大小的百分比，例如 50% */
 }
