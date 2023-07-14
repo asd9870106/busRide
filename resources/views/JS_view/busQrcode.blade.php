@@ -15,7 +15,7 @@
         }
         if(data.length === 0){
             Swal.fire({
-                title: '查無站牌',
+                title: '查無路線',
                 icon: 'warning',
                 showCancelButton: false,
                 confirmButtonText: '確定',
@@ -129,10 +129,4 @@
             data.src = url
         })
     }
-
-
-
-
-
-    
 </script>

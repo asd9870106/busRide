@@ -19,11 +19,11 @@
         try {
             // 嘗試取得使用者位置
             userPosition = await requestUserPosition();
-            // userLat = userPosition.latitude;
-            // userLon = userPosition.longitude;
+            userLat = userPosition.latitude;
+            userLon = userPosition.longitude;
             // 北科位置
-            userLat = 25.042938157385166;
-            userLon = 121.5357200537496;
+            // userLat = 25.042938157385166;
+            // userLon = 121.5357200537496;
             console.log('User position is available.');
         } catch (error) {
             // 如果取得位置失敗，顯示提示訊息
@@ -88,7 +88,7 @@
 
         
         map.on('click', clickHandler);
-        map.on("click", handleMapClick);
+        // map.on("click", handleMapClick);
 
     }
 
@@ -523,14 +523,13 @@
     }
 
     function clickHandler(event) {
+        // 回傳經緯度
         let coordinate = event.coordinate;
         let lonlat = ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326');
         destinationLon = lonlat[0];
         destinationLat = lonlat[1];
         console.log('Longitude: ' + lonlat[0] + ' Latitude: ' + lonlat[1]);
-    }
-
-    function handleMapClick(event) {
+        // 紅點
         const markerLayers = map.getLayers().getArray().filter(layer => {
             return layer.get('name') === 'markerLayer';
         });
@@ -563,5 +562,9 @@
         });
         map.addLayer(markerLayer);
     }
+
+    // function handleMapClick(event) {
+        
+    // }
     
 </script>
