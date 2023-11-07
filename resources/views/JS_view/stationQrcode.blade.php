@@ -48,24 +48,39 @@
         document.querySelector('.busqrcode').classList.remove('d-none');
         for(let i = 0; i < data.length; i=i+2){
             trComponent = cloneTable.cloneNode(true);
-            trComponent.querySelector('.stopName0').textContent = data[i].station_name;
-            trComponent.querySelector('.stopName1').textContent = data[i+1].station_name;
-            trComponent.querySelector('.stopAddress0').textContent = data[i].station_address;
-            trComponent.querySelector('.stopAddress1').textContent = data[i+1].station_address;
-            let stationId0 = data[i].station_id;
-            let stationId1 = data[i+1].station_id;
-            let image0 = trComponent.querySelector('#image0');
-            let image1 = trComponent.querySelector('#image1');
-    
-            getQrcode(stationId0, image0);
-            getQrcode(stationId1, image1);       
-            table.append(trComponent); 
+            if(data[i+1] === undefined){
+                trComponent.querySelector('.stopName0').textContent = data[i].station_name;
+                trComponent.querySelector('.stopAddress0').textContent = data[i].station_address;
+                let stationId0 = data[i].station_id;
+                let image0 = trComponent.querySelector('#image0');
+                trComponent.querySelector('#image1').classList.add('d-none');
+                getQrcode(stationId0, image0);
+                table.append(trComponent); 
+            }
+            else{
+                trComponent.querySelector('.stopName0').textContent = data[i].station_name;
+                trComponent.querySelector('.stopName1').textContent = data[i+1].station_name;
+                trComponent.querySelector('.stopAddress0').textContent = data[i].station_address;
+                trComponent.querySelector('.stopAddress1').textContent = data[i+1].station_address;
+                let stationId0 = data[i].station_id;
+                let stationId1 = data[i+1].station_id;
+                let image0 = trComponent.querySelector('#image0');
+                let image1 = trComponent.querySelector('#image1');
+                getQrcode(stationId0, image0);
+                getQrcode(stationId1, image1);       
+                table.append(trComponent); 
+            }
         }
     }
 
     function clearTable() {
         let table = document.querySelectorAll('.tr-template');
         let originalTable = table[0];
+        originalTable.querySelector('.stopName0').textContent = '';
+        originalTable.querySelector('.stopName1').textContent = '';
+        originalTable.querySelector('.stopAddress0').textContent = '';
+        originalTable.querySelector('.stopAddress1').textContent = '';
+        originalTable.querySelector('#image1').classList.remove('d-none');
         for(i=0; i<table.length; i++) {
             table[i].parentNode.removeChild(table[i]);
         }

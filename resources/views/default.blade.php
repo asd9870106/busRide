@@ -8,8 +8,6 @@
     @vite(['resources/js/app.js'])
 
     <script src="https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.3.0/ol.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 </head>
 @yield('header')
@@ -18,6 +16,5 @@
     <main id="Main_app">
         @yield('contents')
     </main>
-    {{-- 尚未打包 js --}}
 </body>
 </html>

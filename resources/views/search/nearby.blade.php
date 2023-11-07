@@ -62,7 +62,9 @@
                         </td>
                         <td class="qrcode text-center">
                             <div class="qrcodeView d-none" id="qrcode">
-                                <img class="image" id="image0" src="" alt="">
+                                <a class="busRide">
+                                    <img class="image" id="image0" src="" alt="">
+                                </a>
                                 <div id="qrcodeName"></div>
                             </div>
                         </td>

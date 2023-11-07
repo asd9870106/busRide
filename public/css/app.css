@@ -246,13 +246,18 @@ input.bus {
 }
 
 .search-icon {
-  display: flex;
-  justify-content: center; /* 水平置中 */
-  align-items: center; /* 垂直置中 */
-  width: 50%; /* 使用相對寬度 */
-  height: 50%; /* 使用相對高度 */
+    display: flex;
+    justify-content: center;
+    /* 水平置中 */
+    align-items: center;
+    /* 垂直置中 */
+    width: 50%;
+    /* 使用相對寬度 */
+    height: 50%;
+    /* 使用相對高度 */
 }
 
 .search-icon i {
-  font-size: auto; /* 或設定為相對於容器大小的百分比，例如 50% */
+    font-size: auto;
+    /* 或設定為相對於容器大小的百分比，例如 50% */
 }

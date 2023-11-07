@@ -231,47 +231,55 @@
         for(let i=0; i<data1.length; i++) {
             data.push(data1[i]);
         }
-        for(let i = 0; i < data.length; i++){
-            trComponent = cloneTable.cloneNode(true);
-            let EstimateTime = data[i]['EstimateTime'];
-            const time0 = Math.ceil(EstimateTime/60);
-            if(data[i]['StopStatus'] === 0){
-                trComponent.querySelector('.RouteName').textContent = data[i]['RouteName']['Zh_tw'];
-                if(time0 === 0){
-                    trComponent.querySelector('.EstimateTime').textContent = "進站中";
-                    trComponent.setAttribute('value', time0);
-                }else {
-                    trComponent.querySelector('.EstimateTime').textContent = time0 + "分";
-                    trComponent.setAttribute('value', time0);
+        if(data.length !== 0){
+            for(let i = 0; i < data.length; i++){
+                trComponent = cloneTable.cloneNode(true);
+                let EstimateTime = data[i]['EstimateTime'];
+                const time0 = Math.ceil(EstimateTime/60);
+                if(data[i]['StopStatus'] === 0){
+                    trComponent.querySelector('.RouteName').textContent = data[i]['RouteName']['Zh_tw'];
+                    if(time0 === 0){
+                        trComponent.querySelector('.EstimateTime').textContent = "進站中";
+                        trComponent.setAttribute('value', time0);
+                    }else {
+                        trComponent.querySelector('.EstimateTime').textContent = time0 + "分";
+                        trComponent.setAttribute('value', time0);
+                    }
                 }
+                else if(data[i]['StopStatus'] === 1){
+                    trComponent.querySelector('.RouteName').textContent = data[i]['RouteName']['Zh_tw'];
+                    trComponent.querySelector('.EstimateTime').textContent = "尚未發車";
+                    trComponent.setAttribute('value', 96);
+                }
+                else if(data[i]['StopStatus'] === 2){
+                    trComponent.querySelector('.RouteName').textContent = data[i]['RouteName']['Zh_tw'];
+                    trComponent.querySelector('.EstimateTime').textContent = "交管不停靠";
+                    trComponent.setAttribute('value', 98);
+                }
+                else if(data[i]['StopStatus'] === 3){
+                    trComponent.querySelector('.RouteName').textContent = data[i]['RouteName']['Zh_tw'];
+                    trComponent.querySelector('.EstimateTime').textContent = "末班車已過";
+                    trComponent.setAttribute('value', 97);
+                }
+                else if(data[i]['StopStatus'] === 4){
+                    trComponent.querySelector('.RouteName').textContent = data[i]['RouteName']['Zh_tw'];
+                    trComponent.querySelector('.EstimateTime').textContent = "今日未營運";
+                    trComponent.setAttribute('value', 99);
+                }
+                trComponent.classList.add('sort');
+    
+                trComponent.classList.remove('d-none');
+                table.append(trComponent);
             }
-            else if(data[i]['StopStatus'] === 1){
-                trComponent.querySelector('.RouteName').textContent = data[i]['RouteName']['Zh_tw'];
-                trComponent.querySelector('.EstimateTime').textContent = "尚未發車";
-                trComponent.setAttribute('value', 96);
-            }
-            else if(data[i]['StopStatus'] === 2){
-                trComponent.querySelector('.RouteName').textContent = data[i]['RouteName']['Zh_tw'];
-                trComponent.querySelector('.EstimateTime').textContent = "交管不停靠";
-                trComponent.setAttribute('value', 98);
-            }
-            else if(data[i]['StopStatus'] === 3){
-                trComponent.querySelector('.RouteName').textContent = data[i]['RouteName']['Zh_tw'];
-                trComponent.querySelector('.EstimateTime').textContent = "末班車已過";
-                trComponent.setAttribute('value', 97);
-            }
-            else if(data[i]['StopStatus'] === 4){
-                trComponent.querySelector('.RouteName').textContent = data[i]['RouteName']['Zh_tw'];
-                trComponent.querySelector('.EstimateTime').textContent = "今日未營運";
-                trComponent.setAttribute('value', 99);
-            }
-            trComponent.classList.add('sort');
-
-            trComponent.classList.remove('d-none');
+            sortBusTime();
+        } else {
+            trComponent = cloneTable.cloneNode(true);
+            trComponent.querySelector('.RouteName').textContent = "查無資訊";
+            trComponent.querySelector('.EstimateTime').textContent = "查無資訊";
+            trComponent.setAttribute('value', 97);
             table.append(trComponent);
-            
         }
-        sortBusTime();
+
     }
 
     function sortBusTime() {

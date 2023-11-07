@@ -363,6 +363,7 @@
                             console.log(disArray);
                             let image = trComponent.querySelector('#image0');
                             trComponent.querySelector('#qrcode');
+                            document.querySelector('.busRide').setAttribute('href',"http://127.0.0.1:8000/station/?station=" + disArray[0].stationId)
                             getQrcode(disArray[0].stationId, image);
                             table.append(trComponent); 
                         }
