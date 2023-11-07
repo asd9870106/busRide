@@ -1,7 +1,7 @@
 
 ## 使用技術
 - 使用 MVC架構做開發，將前後端分離，並達成 SPA 的概念。
-- 使用 php laravel框架為後端開發 進行API撰寫與資料關聯性規劃。
+- 使用 php laravel框架為後端開發 進行RESTful API撰寫與資料關聯性規劃。
 - 使用 MySQL為資料庫 並使用phpmyadmin為資料庫管理工具。
 - 使用 debugbar套件協助後端開發。
 - 使用 Javascript ES6、ES5語法。
