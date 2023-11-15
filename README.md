@@ -20,21 +20,21 @@
 
 - 查詢QR Code
 
-![1](https://github.com/asd9870106/busRide/assets/128781300/8ce6132f-a135-4f59-9ba1-95465244b141)
+![1](https://github.com/asd9870106/busRide/assets/128781300/834c0c24-0189-44c8-ae8d-05f2e1140d00)
 
-![0](https://github.com/asd9870106/busRide/assets/128781300/9eabd0c4-559a-4fdc-abb6-a40e98f5e307)
+![0](https://github.com/asd9870106/busRide/assets/128781300/d0ef0ac8-299c-40ca-8466-4b85a3d0a614)
 
 - 乘客(手機畫面)
 
-![站牌QR Code drawio](https://github.com/asd9870106/busRide/assets/128781300/ce02ac8f-7451-4801-9790-1ff98b1ca427)
+![站牌QR Code drawio](https://github.com/asd9870106/busRide/assets/128781300/ab50b3ed-edb6-48aa-90bd-c144b8178d4f)
 
+![3](https://github.com/asd9870106/busRide/assets/128781300/d4ebe79f-ffbe-4035-a1d9-578a6b61797c)
 
-![3](https://github.com/asd9870106/busRide/assets/128781300/2cda2fbc-1dba-4ba8-a627-b3e17d515b5e)
 
 
 - 司機(平板畫面)
-![查看公車預約](https://github.com/asd9870106/busRide/assets/128781300/e0e541d1-eaf7-41e7-b99f-109e77b45f37)
 
+![司機](https://github.com/asd9870106/busRide/assets/128781300/fc0a871b-6330-4e25-87b9-e48a327ad989)
 
 
 
